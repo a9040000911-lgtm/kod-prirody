@@ -144,6 +144,7 @@
 
 <!-- Leaflet & Leaflet-Geoman JS CDN -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@geoman-io/leaflet-geoman-free@2.16.0/dist/leaflet-geoman.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
@@ -1335,7 +1336,7 @@ function initGisMap() {
                     <div class="text-center text-xs text-gray-500 font-mono">Интерактивный калькулятор активирован | Штраф КоАП МО: 150 000 ₽</div>
                 </div>
             `;
-            updateCalculations(12.5);
+            updateCalculations();
             return;
         }
 
@@ -1400,7 +1401,7 @@ function initGisMap() {
                     gisMap.removeLayer(currentPolygon);
                 }
                 currentPolygon = e.layer;
-                updateCalculations(12.5);
+                updateCalculations();
             });
         }
 
@@ -1439,12 +1440,15 @@ function updateCalculations(areaHa) {
 function toggleCadastralLayer() {
     if (!gisMap || !baseCadastralLayer) return;
     const btn = document.getElementById('btn-cadastral');
+    const activeClasses = ['bg-teal-500', 'text-gray-950', 'font-bold', 'hover:bg-teal-400', 'focus:ring-teal-500/50'];
+    const inactiveClasses = ['bg-gray-800', 'text-gray-400', 'border', 'border-gray-700', 'hover:bg-gray-700', 'focus:ring-gray-500/50'];
     
     if (gisMap.hasLayer(baseCadastralLayer)) {
         gisMap.removeLayer(baseCadastralLayer);
         isCadastralActive = false;
         if (btn) {
-            btn.className = 'px-3 py-1.5 rounded-lg text-xs bg-gray-800 text-gray-400 hover:bg-gray-700 transition-colors border border-gray-700';
+            btn.classList.remove(...activeClasses);
+            btn.classList.add(...inactiveClasses);
             const span = document.getElementById('pkk-layer-label');
             if(span) span.textContent = 'Сетка Границ (Вкл)';
             else btn.textContent = 'Сетка Границ (Вкл)';
@@ -1453,7 +1457,8 @@ function toggleCadastralLayer() {
         gisMap.addLayer(baseCadastralLayer);
         isCadastralActive = true;
         if (btn) {
-            btn.className = 'px-3 py-1.5 rounded-lg text-xs bg-teal-500 text-gray-950 font-bold transition-colors shadow-md';
+            btn.classList.remove(...inactiveClasses);
+            btn.classList.add(...activeClasses);
             const span = document.getElementById('pkk-layer-label');
             if(span) span.textContent = 'Сетка Границ (Выкл)';
             else btn.textContent = 'Сетка Границ (Выкл)';
@@ -1466,22 +1471,19 @@ function toggleSatelliteLayer(mode) {
     const btnSat = document.getElementById('btn-sat-mode');
     const btnOsm = document.getElementById('btn-osm-mode');
 
+    const activeClasses = ['bg-teal-500', 'text-gray-950', 'font-bold', 'hover:bg-teal-400', 'focus:ring-teal-500/50'];
+    const inactiveClasses = ['bg-gray-800', 'text-gray-400', 'border', 'border-gray-700', 'hover:bg-gray-700', 'focus:ring-gray-500/50'];
+
     if (mode === 'sat') {
         if (baseOsmLayer && gisMap.hasLayer(baseOsmLayer)) gisMap.removeLayer(baseOsmLayer);
         if (baseSatLayer && !gisMap.hasLayer(baseSatLayer)) gisMap.addLayer(baseSatLayer);
-
-        if (btnSat) btnSat.className = 'px-3 py-1.5 rounded-lg text-xs bg-teal-500 text-gray-950 font-bold transition-colors shadow-md';
-        if (btnOsm) btnOsm.className = 'px-3 py-1.5 rounded-lg text-xs bg-gray-800 text-gray-400 hover:bg-gray-700 transition-colors border border-gray-700';
+        if (btnSat) { btnSat.classList.remove(...inactiveClasses); btnSat.classList.add(...activeClasses); }
+        if (btnOsm) { btnOsm.classList.remove(...activeClasses); btnOsm.classList.add(...inactiveClasses); }
     } else {
         if (baseSatLayer && gisMap.hasLayer(baseSatLayer)) gisMap.removeLayer(baseSatLayer);
         if (baseOsmLayer && !gisMap.hasLayer(baseOsmLayer)) gisMap.addLayer(baseOsmLayer);
-
-        if (btnOsm) btnOsm.className = 'px-3 py-1.5 rounded-lg text-xs bg-teal-500 text-gray-950 font-bold transition-colors shadow-md';
-        if (btnSat) btnSat.className = 'px-3 py-1.5 rounded-lg text-xs bg-gray-800 text-gray-400 hover:bg-gray-700 transition-colors border border-gray-700';
-    }
-} else {
-        if (gisMap.hasLayer(baseSatLayer)) gisMap.removeLayer(baseSatLayer);
-        if (!gisMap.hasLayer(baseOsmLayer)) gisMap.addLayer(baseOsmLayer);
+        if (btnOsm) { btnOsm.classList.remove(...inactiveClasses); btnOsm.classList.add(...activeClasses); }
+        if (btnSat) { btnSat.classList.remove(...activeClasses); btnSat.classList.add(...inactiveClasses); }
     }
 }
 
@@ -1526,6 +1528,12 @@ function resetMap() {
     if (currentPolygon) {
         gisMap.removeLayer(currentPolygon);
     }
+    // Remove search markers if any exist globally
+    gisMap.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+            gisMap.removeLayer(layer);
+        }
+    });
 
     // 4. Re-add default demo polygon
     const hogweedCoords = [
@@ -1545,7 +1553,7 @@ function resetMap() {
     currentPolygon.bindPopup('<b>Очаг Борщевика Сосновского #12</b><br/>Площадь: 12.5 га<br/>Статус: Требует обработки «ГераЩит»').openPopup();
 
     // 5. Reset calculations back to 12.5 ha
-    updateCalculations(12.5);
+    updateCalculations();
 }
 
 // ==========================================
@@ -1603,7 +1611,7 @@ function handleModalSubmit(e) {
 document.addEventListener('DOMContentLoaded', function() {
     initGisMap();
     switchAudienceMode('investor');
-    updateCalculations(12.5);
+    updateCalculations();
 
     // Terminal animation setup
     const restartBtn = document.getElementById('restart-ai-demo');
