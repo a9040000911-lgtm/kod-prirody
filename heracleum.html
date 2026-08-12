@@ -1414,10 +1414,40 @@ async function searchLocation() {
 }
 
 function resetMap() {
-    if (gisMap) {
-        gisMap.setView([56.8587, 35.9176], 13);
-        updateCalculations(12.5);
+    if (!gisMap) return;
+
+    // 1. Reset view to default Tver center
+    gisMap.setView([56.8587, 35.9176], 13);
+
+    // 2. Clear search input
+    const input = document.getElementById('map-search-input');
+    if (input) input.value = '';
+
+    // 3. Remove current polygon/markers
+    if (currentPolygon) {
+        gisMap.removeLayer(currentPolygon);
     }
+
+    // 4. Re-add default demo polygon
+    const hogweedCoords = [
+        [56.8620, 35.9100],
+        [56.8650, 35.9250],
+        [56.8550, 35.9300],
+        [56.8520, 35.9120]
+    ];
+
+    currentPolygon = L.polygon(hogweedCoords, {
+        color: '#0ce6f2',
+        fillColor: '#0ce6f2',
+        fillOpacity: 0.35,
+        weight: 3
+    }).addTo(gisMap);
+
+    currentPolygon.bindPopup('<b>Очаг Борщевика Сосновского #12</b><br/>Площадь: 12.5 га<br/>Статус: Требует обработки «ГераЩит»').openPopup();
+
+    // 5. Reset calculations back to 12.5 ha
+    updateCalculations(12.5);
+}
 }
 
 // ==========================================
