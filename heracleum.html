@@ -1283,6 +1283,38 @@ function initGisMap() {
     const mapElement = document.getElementById('gis-map');
     if (!mapElement || gisMap) return;
 
+        // Check if Leaflet L is loaded; if not, render interactive SVG map fallback
+        if (typeof L === 'undefined') {
+            console.warn('Leaflet CDN not detected. Rendering interactive SVG GIS Map fallback...');
+            mapElement.innerHTML = `
+                <div class="w-full h-full min-h-[500px] bg-gray-950 rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden border border-gray-800 text-white">
+                    <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-teal-400 animate-ping"></span>
+                            <span class="font-bold text-sm text-teal-300 font-mono">ГИС-Картографирование: Очаг Борщевика Сосновского (Тверская область)</span>
+                        </div>
+                        <span class="text-xs bg-teal-900/60 text-teal-300 px-3 py-1 rounded-full border border-teal-700 font-mono">Координаты: 56.8587° N, 35.9176° E</span>
+                    </div>
+                    <div class="my-auto flex flex-col items-center justify-center text-center p-8 bg-gray-900/80 rounded-2xl border border-gray-800 space-y-4">
+                        <svg class="w-full max-w-lg h-48" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="400" height="200" rx="12" fill="#0f172a"/>
+                            <path d="M50 150 Q 120 80 200 120 T 350 50" stroke="#334155" stroke-width="3" stroke-dasharray="4 4"/>
+                            <path d="M80 60 Q 180 140 320 80" stroke="#334155" stroke-width="2"/>
+                            <!-- Polygon Hotspot -->
+                            <polygon points="140,70 240,50 280,130 160,140" fill="#0ce6f2" fill-opacity="0.3" stroke="#0ce6f2" stroke-width="3"/>
+                            <circle cx="205" cy="95" r="6" fill="#0ce6f2"/>
+                            <text x="220" y="100" fill="#0ce6f2" font-size="12" font-weight="bold" font-family="sans-serif">Очаг #12 (12.5 га)</text>
+                        </svg>
+                        <div class="text-xs text-gray-300 font-mono">Демо-полигон очага борщевика 12.5 га (Тверская обл., Калининский район)</div>
+                    </div>
+                    <div class="text-center text-xs text-gray-500 font-mono">Интерактивный калькулятор активирован | Штраф КоАП МО: 150 000 ₽</div>
+                </div>
+            `;
+            updateCalculations(12.5);
+            return;
+        }
+
+
     try {
         gisMap = L.map('gis-map', {
             center: [56.8587, 35.9176],
