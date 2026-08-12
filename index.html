@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="AI-платформа для создания целевых РНК-биогербицидов. Полный цикл R&amp;D от ИИ-таргетинга до патентования." name="description"/>
+<meta content="Код природы — AI-платформа РНК-биогербицидов" property="og:title"/>
+<meta content="AI-платформа для создания целевых РНК-биогербицидов. Полный цикл R&amp;D от ИИ-таргетинга до патентования." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https:///favicon.ico" property="og:image"/>
+<meta content="https:///" property="og:url"/>
+<link href="https:///" rel="canonical"/>
+<title>Код природы — AI-платформа РНК-биогербицидов</title>
+<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+
+<!-- Optimized Single Google Fonts Link -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin=""/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+
+
+<style>
+        body {
+            font-family: "Inter", sans-serif;
+            color: #333;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        section[id] {
+            scroll-margin-top: 100px;
+        }
+        .btn-gradient {
+            background: linear-gradient(90deg, #0ce6f2 0%, #00e0b8 100%);
+            transition: opacity 0.3s ease;
+        }
+        .btn-gradient:hover {
+            opacity: 0.9;
+        }
+        .hero-bg {
+            background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAu_jRRnnR-_cdOYjwGykePAJDvamDoDriqSu1GWLUAD0mKrEx1xCvVZPi7mXGzxFbcVak5uviqOODgd7cLEHXGl2xHyGBw6TPNyr6MwMiVsaEIEsqMsJ8jGFO-4LR4dhi-hxjDL3EC0_OEroZ-SYfOIsDWdWnazebWMux2K-iIir9RW8sEJaZuJD_MxpDeaShiXFElq0MjlHonEEzKshSp3-78yp5v_gM_l5l85mULK8BKveBnQjF7);
+            background-size: cover;
+            background-position: center;
+        }
+        .fade-in-section {
+            opacity: 1;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, transform;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+        header {
+            transition: box-shadow 0.3s ease;
+        }
+        .terminal-log-completed {
+            opacity: 0.4;
+            transition: opacity 1s ease-out;
+        }
+        .scanlines {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.1) 50%,
+                rgba(0,0,0,0.1)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+</style>
+
+<style>
+    /* Ultra-Smooth 60 FPS Hardware Acceleration */
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 90px;
+    }
+    body { font-family: "Inter", sans-serif; color: #333; opacity: 1; }
+    body.page-loaded {
+        opacity: 1;
+    }
+    .fade-in-section {
+        opacity: 1;
+        transform: translate3d(0, 24px, 0);
+        transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform;
+        backface-visibility: hidden;
+    }
+    .fade-in-section.is-visible {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+    .mode-tab-content {
+        transition: opacity 0.35s ease, transform 0.35s ease;
+        will-change: opacity, transform;
+    }
+    .mode-tab-content.mode-hidden {
+        display: none !important;
+        opacity: 1;
+        transform: translate3d(0, 10px, 0);
+    }
+    .mode-tab-content.mode-visible {
+        display: grid !important;
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+</style>
+
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            teal: {
+              50: '#f0fdfa',
+              100: '#ccfbf1',
+              200: '#99f6e4',
+              300: '#5eead4',
+              400: '#2dd4bf',
+              500: '#14b8a6',
+              600: '#0d9488',
+              700: '#0f766e',
+              800: '#115e59',
+              900: '#134e4a',
+              950: '#042f2e'
+            }
+          }
+        }
+      }
+    }
+</script>
+
+<!-- Leaflet & Leaflet-Geoman JS CDN -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@geoman-io/leaflet-geoman-free@2.16.0/dist/leaflet-geoman.min.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+<a class="sr-only focus:not-sr-only focus:absolute focus:p-4 focus:bg-white focus:z-[100]" href="#pipeline">Skip to content</a>
+
+<!-- BEGIN: Header -->
+<header class="bg-white/80 backdrop-blur-md py-4 px-8 flex justify-between items-center sticky top-0 z-50 border-b border-gray-100 shadow-sm" id="main-header">
+<div class="flex items-center gap-2">
+<img alt="Код природы Logo" class="h-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBke20Nlh9zFIQ27p8Sb6_h9Ue6LsV7anTHuyeGwJdW4HaYjhtHXCU7TBveurW1FmMil-fTakB2K0knG5s-Zid-Ssby3aHsVm1IpkcHqg-pfTeo61q-JH7s0ZbnNw7rsUs41YwdWgY7PbbSDMcgSWiTqimJNtmmh4GesXhRBX_2vLLzhsY1i_Bckf9KxCOBxie0kTM1JsYd7uz3JuS-78tCjiHLOWQGHr_-3FhWV39vDapKxCc6Zt1p"/>
+<span class="font-bold text-lg text-gray-900">Код природы</span>
+</div>
+<nav class="hidden lg:flex gap-6 text-sm font-medium text-gray-600">
+<a class="hover:text-teal-500 transition-colors" href="#pipeline">Конвейер</a>
+<a class="hover:text-teal-500 transition-colors" href="#products">Продукты</a>
+<a class="hover:text-teal-500 transition-colors" href="heracleum.html">🌿 Продукт «ГераЩит» (Борщевик)</a>
+<a class="hover:text-teal-500 transition-colors" href="#cooperation">Сотрудничество</a>
+<a class="hover:text-teal-500 transition-colors" href="#about">О платформе</a>
+<a class="hover:text-teal-500 transition-colors" href="#comparison">Сравнение</a>
+<a class="hover:text-teal-500 transition-colors" href="#footer">Контакты</a>
+</nav>
+<div class="flex items-center gap-3">
+<a class="text-xs bg-teal-50 text-teal-700 font-bold px-3 py-1.5 rounded-full border border-teal-200 hover:bg-teal-100 transition-colors flex items-center gap-1" href="heracleum.html">
+<span>🌿 Проект «ГераЩит»</span>
+</a>
+<button class="btn-gradient text-white px-6 py-2 rounded-full font-medium text-sm inline-block shadow-md hover:shadow-lg transition-all" onclick="openRdModal()">
+        Запросить R&amp;D
+</button>
+</div>
+</header>
+<!-- END: Header -->
+
+<!-- BEGIN: Hero Section -->
+<section class="hero-bg relative min-h-[90vh] flex flex-col justify-center px-8 md:px-16 lg:px-24">
+<div class="absolute inset-0 bg-gradient-to-r from-white/90 via-white/70 to-transparent"></div>
+<div class="relative z-10 max-w-3xl fade-in-section is-visible">
+<h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 leading-tight mb-6">
+            Точность молекулы.<br/>Сила природы.
+        </h1>
+<p class="text-xl text-gray-700 mb-10 max-w-2xl leading-relaxed">
+            AI-платформа полного цикла для проектирования, синтеза и доставки таргетных РНК-биопрепаратов следующего поколения.
+        </p>
+<div class="flex flex-wrap gap-4 mb-12">
+<a class="btn-gradient text-white px-8 py-3.5 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all" href="#pipeline">
+                Подробнее о технологии
+            </a>
+<a class="bg-gray-900 text-white hover:bg-gray-800 px-8 py-3.5 rounded-full font-semibold text-lg transition-all flex items-center gap-2" href="heracleum.html">
+<span>🌿 Продукт «ГераЩит»</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<!-- Badge Chain -->
+<div class="flex flex-wrap items-center gap-2 text-xs md:text-sm font-semibold text-gray-700">
+<span class="bg-teal-50 text-teal-700 px-3 py-1.5 rounded-md border border-teal-100">ИИ-Таргетинг</span>
+<span class="text-teal-400 material-symbols-outlined text-sm">arrow_forward</span>
+<span class="bg-teal-50 text-teal-700 px-3 py-1.5 rounded-md border border-teal-100">Нано-Доставка</span>
+<span class="text-teal-400 material-symbols-outlined text-sm">arrow_forward</span>
+<span class="bg-teal-50 text-teal-700 px-3 py-1.5 rounded-md border border-teal-100">Биосинтез</span>
+<span class="text-teal-400 material-symbols-outlined text-sm">arrow_forward</span>
+<span class="bg-teal-50 text-teal-700 px-3 py-1.5 rounded-md border border-teal-100">Полевые SOP</span>
+<span class="text-teal-400 material-symbols-outlined text-sm">arrow_forward</span>
+<span class="bg-teal-50 text-teal-700 px-3 py-1.5 rounded-md border border-teal-100">Патентный пакет</span>
+</div>
+</div>
+</section>
+<!-- END: Hero Section -->
+
+<!-- BEGIN: Problem vs Solution Section -->
+<section class="py-24 md:py-28 px-8 bg-white" id="paradigm">
+<div class="max-w-6xl mx-auto fade-in-section">
+<h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-gray-900">Смена парадигмы в защите растений</h2>
+<div class="grid md:grid-cols-2 gap-8">
+<!-- Problem Card -->
+<div class="relative h-[350px] rounded-2xl overflow-hidden group border-2 border-red-500/20">
+<img alt="Токсичные агрохимикаты" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcDDJbWHisMznfkD5ifyyaTQVt77qUxBXKvO8Jh5m6SKkY6heICHuPUWDz9Le8iD773UjxOpxZjHZbM1ygA5jKcb_E2jABIoYTsN9A4lGpd2b_K_gD0UuIPl0rMa6C7LujHB9H8dfRaTvp8mUGBIWzfct3ewPLWNgQqjSSHs8yzr1jDxbVoW-w7BXh_tDAK6cRNunygmMLdmuolxiO0hdbyRKIr7-0N_HE4sUy_Fn49jJcxiuN6GeV" style="object-position: left center;"/>
+<div class="absolute inset-0 bg-gradient-to-t from-red-900/90 via-red-900/50 to-transparent flex flex-col justify-end p-8">
+<div class="bg-red-500 text-white text-xs font-bold uppercase px-3 py-1 rounded w-max mb-3">Проблема</div>
+<h3 class="text-2xl font-bold text-white mb-3">Токсичные агрохимикаты</h3>
+<p class="text-red-100 text-sm leading-relaxed">
+              Неспецифичные системные гербициды накапливаются в почве, уничтожают полезную микрофлору, загрязняют грунтовые воды и вызывают быструю резистентность у сорняков.
+            </p>
+</div>
+</div>
+<!-- Solution Card -->
+<div class="relative h-[350px] rounded-2xl overflow-hidden group border-2 border-teal-500/20">
+<img alt="Безопасные био-решения" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu_jRRnnR-_cdOYjwGykePAJDvamDoDriqSu1GWLUAD0mKrEx1xCvVZPi7mXGzxFbcVak5uviqOODgd7cLEHXGl2xHyGBw6TPNyr6MwMiVsaEIEsqMsJ8jGFO-4LR4dhi-hxjDL3EC0_OEroZ-SYfOIsDWdWnazebWMux2K-iIir9RW8sEJaZuJD_MxpDeaShiXFElq0MjlHonEEzKshSp3-78yp5v_gM_l5l85mULK8BKveBnQjF7" style="object-position: right center;"/>
+<div class="absolute inset-0 bg-gradient-to-t from-teal-900/90 via-teal-900/50 to-transparent flex flex-col justify-end p-8">
+<div class="bg-teal-500 text-white text-xs font-bold uppercase px-3 py-1 rounded w-max mb-3">Решение</div>
+<h3 class="text-2xl font-bold text-white mb-3">Таргетные РНК-биопрепараты</h3>
+<p class="text-teal-50 text-sm leading-relaxed">
+              Высокоточные молекулярные инструменты. Выключают жизненно важные гены строго у целевого вида. Быстро разлагаются в среде на безопасные нуклеотиды, сохраняя биоразнообразие.
+            </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Problem vs Solution Section -->
+
+<!-- BEGIN: PIPELINE Section -->
+<section class="py-24 md:py-28 px-8 bg-white" id="pipeline">
+<div class="max-w-6xl mx-auto fade-in-section">
+<div class="text-center mb-16">
+<span class="text-teal-600 font-semibold uppercase tracking-wider text-sm">Архитектура платформы</span>
+<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2">Научный конвейер 360°</h2>
+<p class="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">Полный цикл разработки таргетных препаратов: от in silico дизайна до готового продукта.</p>
+</div>
+
+<!-- BEGIN: Live CLI Terminal AI Widget -->
+<div class="my-12 max-w-5xl mx-auto font-sans">
+<div class="bg-gray-950 rounded-3xl p-6 md:p-8 shadow-2xl border border-gray-800 text-white relative overflow-hidden">
+<div class="absolute inset-0 scanlines opacity-30"></div>
+<div class="absolute -top-24 -right-24 w-72 h-72 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute -bottom-24 -left-24 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+<div class="flex items-center justify-between pb-4 mb-4 border-b border-gray-800/80 relative z-10">
+<div class="flex items-center gap-3">
+<div class="flex gap-1.5">
+<div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+<div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+<div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+</div>
+<span class="font-mono text-xs text-gray-400">rinalmo-ai-core v4.1 --target=Heracleum_sosnowskyi</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[11px] bg-green-950/80 text-green-400 px-3 py-1 rounded-full border border-teal-500/30 font-mono flex items-center gap-1.5" id="ai-status-badge">
+<span class="w-2 h-2 rounded-full bg-teal-400 animate-ping hidden" id="ai-status-ping"></span> 
+<span id="ai-status-text"><span class="material-symbols-outlined text-xs mr-1">check</span>Analysis complete</span>
+</span>
+<button class="p-1.5 hover:bg-gray-800 rounded-lg transition-colors text-gray-400 hover:text-white" id="restart-ai-demo" title="Перезапустить">
+<span class="material-symbols-outlined text-sm">refresh</span>
+</button>
+</div>
+</div>
+
+<div class="font-mono text-xs space-y-3 min-h-[220px] relative z-10" id="terminal-stream">
+<!-- Clean Initial FOUC State: opacity-100 translate-y-0 -->
+<div class="terminal-line transform transition-all duration-500 opacity-100 translate-y-0" id="log-1">
+<div class="flex items-center gap-2 text-teal-400 mb-1">
+<span>&gt;</span>
+<span class="font-bold">[1/3] NCBI Entrez Genome Scan</span>
+</div>
+<div class="pl-4 text-gray-400 leading-relaxed border-l border-gray-800">
+          Target: Heracleum sosnowskyi [TaxID: 380424]<br/>
+          Accession loaded: <span class="text-gray-200">3 Genes Loaded: HsPPO1 (MK096772.1), HsGS1 (XM_044558210.1), HsACCase (XM_044549102.1)</span>
+</div>
+</div>
+
+<div class="terminal-line transform transition-all duration-500 opacity-100 translate-y-0" id="log-2">
+<div class="flex items-center gap-2 text-teal-400 mb-1">
+<span>&gt;</span>
+<span class="font-bold">[2/3] RiNALMo Thermodynamic Audit (300 bp)</span>
+</div>
+<div class="pl-4 text-gray-300 space-y-0.5 border-l border-gray-800">
+<div>GC Content: <span class="text-teal-400">48.3% [PASSED]*</span> | ΔG: <span class="text-teal-400">-112.4 kcal/mol*</span></div>
+<div>Homopolymers: <span class="text-teal-400">CLEAR (&lt; 10 repeats)</span></div>
+</div>
+</div>
+
+<div class="terminal-line transform transition-all duration-500 opacity-100 translate-y-0" id="log-3">
+<div class="flex items-center gap-2 text-teal-400 mb-1">
+<span>&gt;</span>
+<span class="font-bold">[3/3] BLAST+ Off-Target Safety Screening</span>
+</div>
+<div class="pl-4 text-gray-300 border-l border-gray-800">
+          vs Triticum aestivum (Пшеница): <span class="text-teal-400">0% identity (видоспецифично)</span><br/>
+          vs Helianthus annuus (Подсолнечник): <span class="text-teal-400">0% identity (видоспецифично)</span><br/>
+<span class="text-teal-300 font-bold">&gt;&gt; SAFETY STATUS: HIGH SPECIES SPECIFICITY CONFIRMED</span>
+</div>
+</div>
+</div>
+
+<div class="transform transition-all duration-[1500ms] ease-[cubic-bezier(0.4,0,0.2,1)] mt-6 pt-5 border-t border-gray-800 relative z-10 opacity-0 translate-y-4 scale-95 blur-sm max-h-0 overflow-hidden" id="log-final">
+<div class="bg-gradient-to-b from-gray-900 to-gray-950 rounded-2xl p-5 border border-teal-500/40 shadow-xl">
+<div class="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-gray-800">
+<div class="flex items-center gap-2">
+<span class="bg-teal-500/20 text-teal-300 text-xs px-3 py-1 rounded-full border border-teal-500/30 font-semibold flex items-center gap-1 font-sans">
+<span class="material-symbols-outlined text-xs">check_circle</span> Автоматизированный скрининг
+            </span>
+<span class="text-xs text-gray-400 font-mono">ID: RND-Hs-PPO1-2026</span>
+</div>
+<span class="text-xs text-teal-400 font-medium font-sans">Соответствие Приказу № 107</span>
+</div>
+<h4 class="text-base font-bold text-white mb-3 font-sans">
+          Спецификация R&amp;D-комплекта «ГераЩит» (Мульти-Мишень: PPO1 + GS1 + ACCase (Коктейль 3 генов))
+        </h4>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4 text-xs font-sans">
+<div class="bg-gray-900/80 p-3 rounded-xl border border-gray-800">
+<div class="flex items-center gap-2 text-teal-400 font-bold mb-2">
+<span class="material-symbols-outlined text-sm">dna</span>
+<span>1. Молекулярный продукт</span>
+</div>
+<ul class="text-gray-300 space-y-1 text-[11px]">
+<li>• Кандидат: <strong>дсРНК 300 п.н.</strong></li>
+<li>• Доставка: <strong>СТП-Полиплекс™</strong></li>
+<li>• Себестоимость: <strong>₽60 / г</strong></li>
+<li>• УФ-защита: <strong>30 дней</strong></li>
+</ul>
+</div>
+<div class="bg-gray-900/80 p-3 rounded-xl border border-gray-800">
+<div class="flex items-center gap-2 text-teal-400 font-bold mb-2">
+<span class="material-symbols-outlined text-sm">science</span>
+<span>2. Лабораторный SOP</span>
+</div>
+<ul class="text-gray-300 space-y-1 text-[11px]">
+<li>• Протокол <strong>RT-qPCR</strong> (нокдаун PPO1)</li>
+<li>• DLS-контроль <strong>30–80 нм</strong></li>
+<li>• Zeta-потенциал <strong>≥ +25 мВ</strong></li>
+<li>• Инструкция ферментации HT115</li>
+</ul>
+</div>
+<div class="bg-gray-900/80 p-3 rounded-xl border border-gray-800">
+<div class="flex items-center gap-2 text-teal-400 font-bold mb-2">
+<span class="material-symbols-outlined text-sm">gavel</span>
+<span>3. Патентный пакет</span>
+</div>
+<ul class="text-gray-300 space-y-1 text-[11px]">
+<li>• Форма <strong>ИЗ-2020</strong> (Приказ № 107)</li>
+<li>• Формула из 5 пунктов</li>
+<li>• Листинг <strong>WIPO ST.26 XML</strong></li>
+<li>• Досье по ФЗ-109 (Минсельхоз)</li>
+</ul>
+</div>
+</div>
+<div class="flex flex-wrap justify-between items-center text-xs text-gray-400 pt-3 border-t border-gray-800 gap-2 font-sans">
+<span class="flex items-center gap-1 text-gray-300">
+<span class="material-symbols-outlined text-sm text-teal-400">verified</span>
+            Готово к передаче в НИИ / Агрохолдинг
+          </span>
+<a class="bg-teal-500 hover:bg-teal-400 text-gray-950 font-bold px-4 py-1.5 rounded-full transition-all flex items-center gap-1" href="heracleum.html">
+            Запросить полный R&amp;D-пакет «ГераЩит» <span class="material-symbols-outlined text-xs">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+
+<div class="text-[10px] text-gray-500 mt-2 text-right">
+  * Демонстрационные иллюстративные значения термодинамики для скрининга.
+</div>
+</div>
+</div>
+<!-- END: Natural Live CLI Terminal AI Widget -->
+
+<div class="grid gap-8 relative">
+<div class="hidden md:block absolute left-8 top-8 bottom-8 w-0.5 bg-teal-100 z-0"></div>
+<div class="relative z-10 flex flex-col md:flex-row gap-6 items-start">
+<div class="w-16 h-16 rounded-full bg-teal-500 text-white flex items-center justify-center font-bold text-2xl shrink-0 shadow-md">1</div>
+<div class="bg-gray-50 rounded-2xl p-8 flex-grow border border-gray-100 hover:border-teal-200 transition-colors">
+<h3 class="text-xl font-bold text-gray-900 mb-2">Target Discovery (ИИ-Таргетинг)</h3>
+<p class="text-gray-600">Собственные алгоритмы анализируют геномы для подбора видоспецифичных РНК-мишеней с прогнозируемым офф-таргет риском &lt; 0.1% для нецелевых видов.</p>
+</div>
+</div>
+
+<div class="relative z-10 flex flex-col md:flex-row gap-6 items-start">
+<div class="w-16 h-16 rounded-full bg-teal-500 text-white flex items-center justify-center font-bold text-2xl shrink-0 shadow-md">2</div>
+<div class="bg-gray-50 rounded-2xl p-8 flex-grow border border-gray-100 hover:border-teal-200 transition-colors">
+<h3 class="text-xl font-bold text-gray-900 mb-2">Delivery Engineering (Нанодоставка)</h3>
+<p class="text-gray-600">Патентно-защищаемая платформа <strong class="text-teal-700">СТП-Полиплекс™</strong> обеспечивает упаковку дсРНК, проникание через восковой слой растений и 30-дневную защиту от УФ-деградации.</p>
+</div>
+</div>
+
+<div class="relative z-10 flex flex-col md:flex-row gap-6 items-start">
+<div class="w-16 h-16 rounded-full bg-teal-500 text-white flex items-center justify-center font-bold text-2xl shrink-0 shadow-md">3</div>
+<div class="bg-gray-50 rounded-2xl p-8 flex-grow border border-gray-100 hover:border-teal-200 transition-colors">
+<h3 class="text-xl font-bold text-gray-900 mb-2">Fermentation &amp; Scale-up (Биопроизводство)</h3>
+<p class="text-gray-600">Оптимизированные протоколы бактериальной ферментации на базе штамма E. coli HT115. Снижение себестоимости производства до целевых <strong class="text-teal-700">₽60/г</strong>.</p>
+</div>
+</div>
+
+<div class="relative z-10 flex flex-col md:flex-row gap-6 items-start">
+<div class="w-16 h-16 rounded-full bg-teal-500 text-white flex items-center justify-center font-bold text-2xl shrink-0 shadow-md">4</div>
+<div class="bg-gray-50 rounded-2xl p-8 flex-grow border border-gray-100 hover:border-teal-200 transition-colors">
+<h3 class="text-xl font-bold text-gray-900 mb-2">SOP &amp; Field Regimes (Полевые стандарты)</h3>
+<p class="text-gray-600">Разработка строгих лабораторных (RT-qPCR, DLS) и полевых регламентов применения для обеспечения стабильной эффективности в реальных агроклиматических условиях.</p>
+</div>
+</div>
+
+<div class="relative z-10 flex flex-col md:flex-row gap-6 items-start">
+<div class="w-16 h-16 rounded-full bg-teal-500 text-white flex items-center justify-center font-bold text-2xl shrink-0 shadow-md">5</div>
+<div class="bg-gray-50 rounded-2xl p-8 flex-grow border border-gray-100 hover:border-teal-200 transition-colors">
+<h3 class="text-xl font-bold text-gray-900 mb-2">IP &amp; Regulatory (Патентный пакет)</h3>
+<p class="text-gray-600">Правовое обеспечение: подготовка заявок по стандарту Роспатента (Приказ № 107), международный листинг WIPO ST.26 и досье по ФЗ-109.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: PIPELINE Section -->
+
+<!-- BEGIN: PRODUCTS Section -->
+<section class="py-24 md:py-28 px-8 bg-gray-50 border-y border-gray-100" id="products">
+<div class="max-w-6xl mx-auto fade-in-section">
+<div class="text-center mb-16">
+<span class="text-teal-600 font-semibold uppercase tracking-wider text-sm">Что вы получаете</span>
+<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2">Продукты и решения</h2>
+<p class="text-lg text-gray-600 mt-4">Модульные компоненты для агробизнеса и химических корпораций</p>
+</div>
+<div class="grid md:grid-cols-2 gap-8">
+<!-- Product 1 -->
+<div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full hover:-translate-y-1 transition-transform duration-300">
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-teal-500 text-5xl">science</span>
+<span class="text-xs font-bold bg-teal-50 text-teal-700 px-3 py-1 rounded-full">B2G / Агрохолдинги</span>
+</div>
+<h3 class="text-2xl font-bold text-gray-900 mb-3">Готовые препараты (ГераЩит)</h3>
+<p class="text-gray-600 mb-6 flex-grow">Специфичный биогербицид для искоренения борщевика Сосновского на землях населенных пунктов и вдоль транспортных артерий.</p>
+<a class="text-teal-600 font-bold text-sm hover:text-teal-700 flex items-center gap-1 mt-auto" href="heracleum.html">
+<span>Страница продукта «ГераЩит»</span>
+<span class="material-symbols-outlined text-xs">arrow_forward</span>
+</a>
+</div>
+
+<!-- Product 2 -->
+<div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full hover:-translate-y-1 transition-transform duration-300">
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-teal-500 text-5xl">hub</span>
+<span class="text-xs font-bold bg-teal-50 text-teal-700 px-3 py-1 rounded-full">Производители СЗР</span>
+</div>
+<h3 class="text-2xl font-bold text-gray-900 mb-3">Нано-платформа (СТП-Полиплекс™)</h3>
+<p class="text-gray-600 mb-6 flex-grow">Лицензируемая система доставки для ваших действующих веществ. Повышает биодоступность и устойчивость молекул.</p>
+</div>
+
+<!-- Product 3 -->
+<div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full hover:-translate-y-1 transition-transform duration-300">
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-teal-500 text-5xl">biotech</span>
+<span class="text-xs font-bold bg-teal-50 text-teal-700 px-3 py-1 rounded-full">НИИ / R&amp;D центры</span>
+</div>
+<h3 class="text-2xl font-bold text-gray-900 mb-3">Лабораторные регламенты</h3>
+<p class="text-gray-600 mb-6 flex-grow">Передача оптимизированных протоколов синтеза, нано-упаковки и контроля качества (SOP) для создания собственного производства.</p>
+</div>
+
+<!-- Product 4 -->
+<div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full hover:-translate-y-1 transition-transform duration-300">
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-teal-500 text-5xl">gavel</span>
+<span class="text-xs font-bold bg-teal-50 text-teal-700 px-3 py-1 rounded-full">Инвесторы / Партнеры</span>
+</div>
+<h3 class="text-2xl font-bold text-gray-900 mb-3">Патентные пакеты</h3>
+<p class="text-gray-600 mb-6 flex-grow">Готовые к внедрению IP-решения: от защищенных РНК-последовательностей до рецептур конечных препаратов.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: PRODUCTS Section -->
+
+<!-- BEGIN: COOPERATION Section -->
+<section class="py-24 md:py-28 px-8 bg-white" id="cooperation">
+<div class="max-w-6xl mx-auto fade-in-section">
+<div class="text-center mb-16">
+<span class="text-teal-600 font-semibold uppercase tracking-wider text-sm">Форматы работы</span>
+<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2">Модели сотрудничества</h2>
+<p class="text-lg text-gray-600 mt-4">Гибкие форматы взаимодействия для решения ваших задач</p>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<div class="p-8 rounded-2xl border-2 border-gray-100 hover:border-teal-500 transition-colors flex flex-col items-center text-center">
+<span class="material-symbols-outlined text-gray-800 text-4xl mb-4">shopping_cart</span>
+<h4 class="text-xl font-bold text-gray-900 mb-4">Закупка препаратов</h4>
+<p class="text-gray-600 mb-6 flex-grow">Оптовые поставки готовых формуляций (ГераЩит) для нужд муниципалитетов и крупных агрохолдингов.</p>
+<a class="text-teal-600 font-bold text-xs hover:text-teal-700 flex items-center gap-1 mt-auto" href="heracleum.html">
+<span>Рассчитать объемы «ГераЩит»</span> <span class="material-symbols-outlined text-xs">arrow_forward</span>
+</a>
+</div>
+
+<div class="p-8 rounded-2xl border-2 border-teal-500 bg-teal-50/20 flex flex-col items-center text-center relative shadow-lg">
+<div class="absolute -top-4 bg-teal-500 text-white text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wide">Популярно</div>
+<span class="material-symbols-outlined text-teal-600 text-4xl mb-4">build_circle</span>
+<h4 class="text-xl font-bold text-gray-900 mb-4">Custom R&amp;D</h4>
+<p class="text-gray-600 mb-6 flex-grow">Разработка биогербицида под ключ против вашего целевого сорняка: от ИИ-поиска мишени до полевых испытаний.</p>
+</div>
+
+<div class="p-8 rounded-2xl border-2 border-gray-100 hover:border-teal-500 transition-colors flex flex-col items-center text-center">
+<span class="material-symbols-outlined text-gray-800 text-4xl mb-4">copyright</span>
+<h4 class="text-xl font-bold text-gray-900 mb-4">IP Licensing</h4>
+<p class="text-gray-600 mb-6 flex-grow">Лицензирование технологий нанодоставки (СТП-Полиплекс™) и доступа к алгоритмам для ваших собственных разработок.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: COOPERATION Section -->
+
+<!-- BEGIN: PROOF Section -->
+<section class="py-24 md:py-28 bg-gray-50 border-y border-gray-100" id="about">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fade-in-section">
+<div class="text-center max-w-3xl mx-auto mb-16">
+<span class="text-teal-600 font-semibold uppercase tracking-wider text-sm">Доказанная эффективность</span>
+<h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mt-2">
+        «Код природы» — пионер молекулярного АгроТеха в России
+      </h2>
+<p class="text-lg text-gray-600 mt-4">
+        Мы объединили искусственный интеллект, молекулярную биологию и промышленные нанотехнологии, чтобы освободить сельское хозяйство от токсичной химии.
+      </p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+<div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center">
+<div class="text-4xl font-extrabold text-teal-600">&lt; 0.1%</div>
+<div class="text-sm font-medium text-gray-600 mt-3">Прогнозируемый офф-таргет риск. Высокая видоспецифичность.</div>
+</div>
+<div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center">
+<div class="text-4xl font-extrabold text-teal-600">₽60/г</div>
+<div class="text-sm font-medium text-gray-600 mt-3">Целевая себестоимость (COGS) биосинтеза дсРНК</div>
+</div>
+<div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center">
+<div class="text-4xl font-extrabold text-teal-600">30 дней</div>
+<div class="text-sm font-medium text-gray-600 mt-3">УФ-защита листа с помощью СТП-Полиплекс™</div>
+</div>
+<div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center">
+<div class="text-4xl font-extrabold text-teal-600">ФЗ-109</div>
+<div class="text-sm font-medium text-gray-600 mt-3">Подготовка досье по стандартам Минсельхоза РФ.</div>
+</div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<div class="space-y-6">
+<h3 class="text-2xl font-bold text-gray-900">
+          Научный конвейер полного цикла: от ИИ-модели до канистры в поле
+        </h3>
+<p class="text-gray-600 leading-relaxed">
+          Компания <strong>«Код природы»</strong> разрабатывает передовую ИИ-платформу, способную за несколько недель спроектировать и синтезировать РНК-биопестицид под любой сорный вид или вредитель. 
+        </p>
+<p class="text-gray-600 leading-relaxed">
+          Наш флагманский продукт — биогербицид <strong>«ГераЩит»</strong> — решает государственную проблему искоренения борщевика Сосновского (<em>Heracleum sosnowskyi</em>) на землях населенных пунктов, в водоохранных зонах и вдоль транспортных артерий.
+        </p>
+<ul class="space-y-3 pt-2">
+<li class="flex items-start">
+<span class="text-teal-500 font-bold mr-3">✓</span>
+<span class="text-gray-700"><strong>Собственный ИИ-стек:</strong> нейросети RiNALMo и FENNEC подбирают безопасные РНК-последовательности с офф-таргет риском &lt; 0.1%.</span>
+</li>
+<li class="flex items-start">
+<span class="text-teal-500 font-bold mr-3">✓</span>
+<span class="text-gray-700"><strong>Защищаемая доставка:</strong> наносистема СТП-Полиплекс™ обеспечивает дождестойкость и проникание через восковой слой.</span>
+</li>
+<li class="flex items-start">
+<span class="text-teal-500 font-bold mr-3">✓</span>
+<span class="text-gray-700"><strong>Патентная подготовка:</strong> заявки оформляются по стандарту Роспатента (Приказ № 107).</span>
+</li>
+</ul>
+</div>
+<div class="bg-white p-8 rounded-3xl shadow-lg border border-gray-100">
+<h4 class="text-xl font-bold text-gray-900 mb-6">Дорожная карта и масштабы R&amp;D</h4>
+<div class="space-y-6">
+<div class="flex items-start">
+<div class="w-10 h-10 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center font-bold mr-4 shrink-0">1</div>
+<div>
+<h5 class="font-bold text-gray-900">ИИ и Лабораторные опыты (Phase 1)</h5>
+<p class="text-sm text-gray-500">Валидация генов-мишеней (PPO, GS1), ПЦР-анализ нокдауна и DLS/TEM анализ наночастиц.</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center font-bold mr-4 shrink-0">2</div>
+<div>
+<h5 class="font-bold text-gray-900">Полевые испытания &amp; 100L Ферментация (Phase 2)</h5>
+<p class="text-sm text-gray-500">Деляночные тесты в реальных региональных условиях и масштабирование толлинга.</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center font-bold mr-4 shrink-0">3</div>
+<div>
+<h5 class="font-bold text-gray-900">Регистрация в Минсельхозе (Phase 3-4)</h5>
+<p class="text-sm text-gray-500">Токсикологические сертификаты ФЗ-109 и промышленный выход на рынок.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: PROOF Section -->
+
+<!-- BEGIN: Comparison Table Section -->
+<section class="py-24 md:py-28 px-8 bg-gray-50 border-t border-gray-100 fade-in-section" id="comparison">
+<div class="max-w-4xl mx-auto">
+<div class="text-center mb-16">
+<span class="text-teal-600 font-semibold uppercase tracking-wider text-sm">Почему мы</span>
+<h2 class="text-3xl font-bold text-gray-900 mt-2">Сравнительный анализ</h2>
+<p class="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">Три проблемы мирового РНК-агротеха — себестоимость, смываемость, УФ-деградация — решены.</p>
+</div>
+<div class="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
+<div class="rounded-2xl border border-gray-200 shadow-sm bg-white min-w-[600px]">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white">
+<th class="p-5 font-medium sticky left-0 bg-gray-900 z-10 shadow-r shadow-gray-100">Критерий</th>
+<th class="p-5 text-center font-medium w-1/3 border-l border-gray-700">Традиционная химия</th>
+<th class="bg-teal-600 text-white p-4 border-x border-teal-500/30 text-center w-1/3">«Код природы» (РФ)</th>
+</tr>
+</thead>
+<tbody class="text-gray-600 text-sm">
+<tr class="group border-b border-gray-100 hover:bg-gray-50/80 transition-colors">
+<td class="p-5 font-medium text-gray-800 sticky left-0 bg-white z-10 shadow-r shadow-gray-100 group-hover:bg-gray-50/80 transition-colors">Экологическая безопасность</td>
+<td class="p-5 text-center border-l border-gray-100 text-red-500 font-medium">Низкая (токсичность)</td>
+<td class="py-4 px-6 font-semibold text-teal-700 bg-teal-50/60 border-x border-teal-100 text-center">Природная биодеградация <span class="ml-2 inline-flex items-center gap-1 text-[10px] font-bold text-teal-700 bg-teal-100 rounded-full px-2 py-0.5 uppercase tracking-wide">✓ Распад до нуклеотидов</span></td>
+</tr>
+<tr class="group border-b border-gray-100 hover:bg-gray-50/80 transition-colors">
+<td class="p-5 font-medium text-gray-800 sticky left-0 bg-white z-10 shadow-r shadow-gray-100 group-hover:bg-gray-50/80 transition-colors">Избирательность (специфичность)</td>
+<td class="p-5 text-center border-l border-gray-100 text-gray-500">Широкий спектр (поражает всё)</td>
+<td class="py-4 px-6 font-semibold text-teal-700 bg-teal-50/60 border-x border-teal-100 text-center">Высокая (видоспецифичная) <span class="ml-2 inline-flex items-center gap-1 text-[10px] font-bold text-teal-700 bg-teal-100 rounded-full px-2 py-0.5 uppercase tracking-wide">✓ Офф-таргет &lt; 0.1%</span></td>
+</tr>
+<tr class="group border-b border-gray-100 hover:bg-gray-50/80 transition-colors">
+<td class="p-5 font-medium text-gray-800 sticky left-0 bg-white z-10 shadow-r shadow-gray-100 group-hover:bg-gray-50/80 transition-colors">Сроки распада в почве (T1/2)</td>
+<td class="p-5 text-center border-l border-gray-100 text-gray-500">Месяцы / Годы</td>
+<td class="py-4 px-6 font-semibold text-teal-700 bg-teal-50/60 border-x border-teal-100 text-center">Дни (распад в биосфере) <span class="ml-2 inline-flex items-center gap-1 text-[10px] font-bold text-teal-700 bg-teal-100 rounded-full px-2 py-0.5 uppercase tracking-wide">✓ DT50 &lt; 24 ч</span></td>
+</tr>
+<tr class="group hover:bg-gray-50/80 transition-colors">
+<td class="p-5 font-medium text-gray-800 sticky left-0 bg-white z-10 shadow-r shadow-gray-100 group-hover:bg-gray-50/80 transition-colors">Риск развития резистентности</td>
+<td class="p-5 text-center border-l border-gray-100 text-red-500">Высокий</td>
+<td class="py-4 px-6 font-semibold text-teal-700 bg-teal-50/60 border-x border-teal-100 text-center">Минимальный (быстрая адаптация мишени) <span class="ml-2 inline-flex items-center gap-1 text-[10px] font-bold text-teal-700 bg-teal-100 rounded-full px-2 py-0.5 uppercase tracking-wide">✓ ИИ-Скрининг</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="mt-16">
+<h3 class="text-2xl font-bold mb-8 text-center text-gray-900">Четыре ключевых отличия</h3>
+<div class="grid md:grid-cols-2 gap-6">
+<div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 hover:-translate-y-1 transform duration-300">
+<div class="text-3xl mb-4 text-teal-500"><span class="material-symbols-outlined text-4xl">block</span></div>
+<h4 class="text-lg font-bold text-gray-900 mb-2">Спрей без ГМО</h4>
+<p class="text-gray-600 text-sm">В отличие от ГМО-решений Bayer, наш препарат применяется как обычный спрей. Это обеспечивает быстрое прохождение регуляторных барьеров в РФ и ЕС.</p>
+</div>
+<div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 hover:-translate-y-1 transform duration-300">
+<div class="text-3xl mb-4 text-teal-500"><span class="material-symbols-outlined text-4xl">wb_sunny</span></div>
+<h4 class="text-lg font-bold text-gray-900 mb-2">30 дней стабильности</h4>
+<p class="text-gray-600 text-sm">В то время как конкуренты (GreenLight) обеспечивают лишь 48ч защиты, наноплатформа СТП-Полиплекс™ гарантирует до 30 дней устойчивости к УФ.</p>
+</div>
+<div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 hover:-translate-y-1 transform duration-300">
+<div class="text-3xl mb-4 text-teal-500"><span class="material-symbols-outlined text-4xl">payments</span></div>
+<h4 class="text-lg font-bold text-gray-900 mb-2">₽60/г против ₽320/г</h4>
+<p class="text-gray-600 text-sm">благодаря оптимизированной бактериальной ферментации E. coli HT115 и протоколу RNASwift, обходящему дорогие IVT-методы синтеза</p>
+</div>
+<div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 hover:-translate-y-1 transform duration-300">
+<div class="text-3xl mb-4 text-teal-500"><span class="material-symbols-outlined text-4xl">track_changes</span></div>
+<h4 class="text-lg font-bold text-gray-900 mb-2">Высокая селективность</h4>
+<p class="text-gray-600 text-sm">Никакого химического дрейфа. ИИ-разработанные последовательности гарантируют офф-таргет риск &lt; 0.1% для нецелевых видов.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Comparison Table Section -->
+
+<!-- BEGIN: AUDIENCE Section -->
+<section class="py-24 md:py-28 px-8 bg-white border-t border-gray-100" id="audience">
+<div class="max-w-6xl mx-auto fade-in-section">
+<div class="text-center mb-16">
+<span class="text-teal-600 font-semibold uppercase tracking-wider text-sm">Целевая аудитория</span>
+<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2">Для кого мы работаем</h2>
+<p class="text-lg text-gray-600 mt-4">Внедрение инноваций на всех уровнях землепользования</p>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<!-- Audience 1 -->
+<div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 flex flex-col hover:shadow-md transition-shadow">
+<span class="material-symbols-outlined text-teal-500 text-4xl mb-6">domain</span>
+<h3 class="text-xl font-bold mb-3 text-gray-900">B2G / Муниципалитеты</h3>
+<p class="text-gray-600 text-sm leading-relaxed mt-auto">
+            Экологичная очистка земель населенных пунктов, водоохранных зон и транспортных инфраструктур от инвазивных видов (борщевик Сосновского) в рамках региональных госпрограмм.
+          </p>
+<a class="text-teal-600 font-bold text-xs hover:text-teal-700 flex items-center gap-1 mt-4" href="heracleum.html">
+<span>Подробнее про «ГераЩит»</span> <span class="material-symbols-outlined text-xs">arrow_forward</span>
+</a>
+</div>
+<!-- Audience 2 -->
+<div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 flex flex-col hover:shadow-md transition-shadow">
+<span class="material-symbols-outlined text-teal-500 text-4xl mb-6">agriculture</span>
+<h3 class="text-xl font-bold mb-3 text-gray-900">Агрохолдинги</h3>
+<p class="text-gray-600 text-sm leading-relaxed mt-auto">
+            Повышение урожайности за счет искоренения резистентных супер-сорняков без угнетения основной культуры. Снижение пестицидной нагрузки на почвы.
+          </p>
+</div>
+<!-- Audience 3 -->
+<div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 flex flex-col hover:shadow-md transition-shadow">
+<span class="material-symbols-outlined text-teal-500 text-4xl mb-6">eco</span>
+<h3 class="text-xl font-bold mb-3 text-gray-900">Производители СЗР / R&amp;D</h3>
+<p class="text-gray-600 text-sm leading-relaxed mt-auto">
+            Химические корпорации, ищущие переход к "зеленым" биотехнологиям. Лицензирование платформы СТП-Полиплекс™ для создания собственных продуктовых линеек.
+          </p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: AUDIENCE Section -->
+
+<!-- BEGIN: CTA Section -->
+<section class="py-24 relative overflow-hidden bg-gray-900 text-white" id="cta">
+<div class="absolute top-0 left-1/4 w-96 h-96 bg-teal-500/20 rounded-full blur-[120px] pointer-events-none"></div>
+<div class="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-[120px] pointer-events-none"></div>
+<div class="max-w-4xl mx-auto px-8 relative z-10 text-center fade-in-section">
+<h2 class="text-3xl md:text-5xl font-extrabold mb-6">Начните переход к точному АгроТеху</h2>
+<p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+            Обсудите возможности разработки кастомного РНК-биопестицида для ваших нужд или интеграции наноплатформы СТП-Полиплекс™ в ваши формуляции.
+        </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<button class="btn-gradient text-white px-8 py-4 rounded-full font-bold text-lg shadow-[0_0_20px_rgba(0,224,184,0.4)] hover:shadow-[0_0_30px_rgba(0,224,184,0.6)] transition-all" onclick="openRdModal()">
+                Запросить R&amp;D-проект
+</button>
+<a class="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-8 py-4 rounded-full font-bold text-lg transition-colors flex items-center justify-center gap-2" href="mailto:sokoloff@yandex.ru?subject=Запрос%20презентации%20платформы">
+<span class="material-symbols-outlined">download</span> Скачать презентацию
+</a>
+</div>
+</div>
+</section>
+<!-- END: CTA Section -->
+
+<!-- BEGIN: Footer -->
+<footer class="bg-gray-950 text-white pt-16 pb-12 px-4 sm:px-6 lg:px-8 border-t border-gray-800" id="footer">
+  <div class="max-w-6xl mx-auto space-y-12">
+    <!-- Top 4-Column Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-xs">
+      
+      <!-- Col 1: Brand & Info -->
+      <div class="space-y-3">
+        <div class="flex items-center gap-2 text-sm font-bold text-white">
+          <div class="w-6 h-6 rounded-full bg-teal-500 flex items-center justify-center text-gray-950 font-black text-xs">КП</div>
+          <span>ООО «Код природы»</span>
+        </div>
+        <p class="text-gray-400 text-xs leading-relaxed">
+          Основатель: Соколов Артём Андреевич.<br/>
+          Разработка и биопроизводство таргетных РНК-биогербицидов (г. Тверь, РФ).
+        </p>
+        <div class="text-teal-400 font-mono text-[11px]">
+          Патентная платформа СТП-Полиплекс™
+        </div>
+      </div>
+
+      <!-- Col 2: Contacts -->
+      <div class="space-y-3">
+        <h4 class="font-bold text-white text-xs uppercase tracking-wider">Контакты</h4>
+        <ul class="space-y-2 text-gray-300">
+          <li>• Тел: <a href="tel:+79040000911" class="hover:text-teal-400 font-mono font-bold transition-colors">+7 (904) 000-09-11</a></li>
+          <li>• Email: <a href="mailto:sokoloff@yandex.ru" class="hover:text-teal-400 font-mono transition-colors">sokoloff@yandex.ru</a></li>
+          
+          <li>• Локация R&amp;D: г. Тверь, Российская Федерация</li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Navigation & Products -->
+      <div class="space-y-3">
+        <h4 class="font-bold text-white text-xs uppercase tracking-wider">Продукт &amp; Навигация</h4>
+        <ul class="space-y-1.5 text-gray-300">
+          <li><a href="index.html" class="hover:text-teal-400 transition-colors">Главная ИИ-Платформа</a></li>
+          <li><a href="heracleum.html" class="hover:text-teal-400 transition-colors">Биогербицид «ГераЩит»</a></li>
+          <li><a href="heracleum.html#map-calculator" class="hover:text-teal-400 transition-colors">ГИС-Карта &amp; Расчет Штрафов</a></li>
+          <li><a href="heracleum.html#investor-dossier" class="hover:text-teal-400 transition-colors">Инвесторский Паспорт Phase 2</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Legal & Compliance -->
+      <div class="space-y-3">
+        <h4 class="font-bold text-white text-xs uppercase tracking-wider">Регуляторика &amp; Патенты</h4>
+        <ul class="space-y-1.5 text-gray-400 text-[11px]">
+          <li>• Патентная заявка Роспатента (Приказ № 107)</li>
+          <li>• Соответствие ФЗ-109 Минсельхоза РФ</li>
+          <li>• 0% ГМО (без трансагенной модификации)</li>
+          <li>• 100% Биоразлагаемость (DT₅₀ &lt; 24ч)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Section 0 Patent Shield Disclaimer -->
+    <div class="bg-gray-900 p-5 rounded-2xl border border-gray-800 text-[11px] text-gray-400 leading-relaxed">
+      <strong class="text-amber-400">Патентный дисклеймер (Раздел 0):</strong> Молекулярные последовательности дсРНК, состав формуляции СТП-Полиплекс™ и специфические праймеры защищены ноу-хау ООО «Код природы» до даты официальной публикации заявки в Роспатенте РФ. Публичные данные на сайте не содержат охраняемых технологических секретов.
+    </div>
+
+    <!-- Bottom Copyright Bar -->
+    <div class="pt-6 border-t border-gray-900 flex flex-wrap items-center justify-between gap-4 text-[11px] text-gray-500 font-mono">
+      <div>© <span id="copyright-year">2026</span> ООО «Код природы» (Соколов А.А., г. Тверь). Все права защищены.</div>
+      <div class="flex gap-4">
+        <span>Конфиденциально</span>
+        <span>|</span>
+        <span>R&amp;D Phase 2 (2026)</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script>
+// ==========================================
+// 1. AUDIENCE MODE SWITCHER
+// ==========================================
+function switchAudienceMode(mode) {
+    const modes = ['investor', 'partner', 'scientist'];
+    modes.forEach(m => {
+        const tab = document.getElementById('tab-' + m);
+        const content = document.getElementById('content-' + m);
+        if (m === mode) {
+            if (tab) {
+                tab.className = 'tab-btn px-6 py-3 rounded-full font-bold text-sm bg-teal-500 text-gray-950 shadow-lg transition-all flex items-center gap-2';
+            }
+            if (content) {
+                content.classList.remove('hidden');
+                content.classList.add('block');
+            }
+        } else {
+            if (tab) {
+                tab.className = 'tab-btn px-6 py-3 rounded-full font-bold text-sm bg-gray-800 text-gray-400 hover:bg-gray-700 transition-all flex items-center gap-2';
+            }
+            if (content) {
+                content.classList.remove('block');
+                content.classList.add('hidden');
+            }
+        }
+    });
+}
+
+// ==========================================
+// 2. GIS MAP & CALCULATOR INITIALIZATION
+// ==========================================
+let gisMap = null;
+let baseOsmLayer = null;
+let baseSatLayer = null;
+let currentPolygon = null;
+
+function initGisMap() {
+    const mapElement = document.getElementById('gis-map');
+    if (!mapElement || gisMap) return;
+
+    try {
+        // Tver region coordinates [56.8587, 35.9176]
+        gisMap = L.map('gis-map', {
+            center: [56.8587, 35.9176],
+            zoom: 13,
+            zoomControl: true
+        });
+
+        // OpenStreetMap Base Tile Layer
+        baseOsmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(gisMap);
+
+        // Esri World Imagery Satellite Tile Layer
+        baseSatLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            maxZoom: 18,
+            attribution: '© Esri'
+        });
+
+        // Add Demo Hogweed Hotspot Polygon in Tver Region
+        const hogweedCoords = [
+            [56.8620, 35.9100],
+            [56.8650, 35.9250],
+            [56.8550, 35.9300],
+            [56.8520, 35.9120]
+        ];
+
+        currentPolygon = L.polygon(hogweedCoords, {
+            color: '#0ce6f2',
+            fillColor: '#0ce6f2',
+            fillOpacity: 0.35,
+            weight: 3
+        }).addTo(gisMap);
+
+        currentPolygon.bindPopup('<b>Очаг Борщевика Сосновского #12</b><br/>Площадь: 12.5 га<br/>Статус: Требует обработки «ГераЩит»').openPopup();
+
+        // Initialize Geoman Controls if available
+        if (gisMap.pm) {
+            gisMap.pm.addControls({
+                position: 'topleft',
+                drawCircleMarker: false,
+                drawPolyline: false,
+                drawMarker: false,
+                drawPolygon: true,
+                drawRectangle: true,
+                drawCircle: true,
+                editMode: true,
+                dragMode: false,
+                cutPolygon: false,
+                removalMode: true
+            });
+
+            gisMap.on('pm:create', function(e) {
+                if (currentPolygon) {
+                    gisMap.removeLayer(currentPolygon);
+                }
+                currentPolygon = e.layer;
+                updateCalculations(12.5);
+            });
+        }
+
+        // Trigger resize calculation
+        setTimeout(() => {
+            if (gisMap) gisMap.invalidateSize();
+        }, 400);
+
+    } catch (err) {
+        console.error('Error initializing GIS map:', err);
+    }
+}
+
+function updateCalculations(areaHa) {
+    const areaEl = document.getElementById('calc-area');
+    const fineEl = document.getElementById('calc-fine');
+    const chemistryEl = document.getElementById('calc-chem');
+    const gerashieldEl = document.getElementById('calc-gerashield');
+    const modalPlotInput = document.getElementById('modal-plot-area');
+
+    const area = areaHa || 12.5;
+    const fine = Math.round(150000 + area * 10000);
+    const chemCost = Math.round(area * 60000);
+    const gerashieldCost = Math.round(area * 4400);
+
+    if (areaEl) areaEl.textContent = area.toFixed(1) + ' га';
+    if (fineEl) fineEl.textContent = fine.toLocaleString('ru-RU') + ' ₽';
+    if (chemistryEl) chemistryEl.textContent = chemCost.toLocaleString('ru-RU') + ' ₽';
+    if (gerashieldEl) gerashieldEl.textContent = gerashieldCost.toLocaleString('ru-RU') + ' ₽';
+
+    if (modalPlotInput) {
+        modalPlotInput.value = `Участок Tver-Hotspot #${Math.floor(Math.random()*900+100)} (${area.toFixed(1)} га)`;
+    }
+}
+
+function toggleSatelliteLayer(mode) {
+    if (!gisMap) return;
+    if (mode === 'sat') {
+        if (gisMap.hasLayer(baseOsmLayer)) gisMap.removeLayer(baseOsmLayer);
+        if (!gisMap.hasLayer(baseSatLayer)) gisMap.addLayer(baseSatLayer);
+    } else {
+        if (gisMap.hasLayer(baseSatLayer)) gisMap.removeLayer(baseSatLayer);
+        if (!gisMap.hasLayer(baseOsmLayer)) gisMap.addLayer(baseOsmLayer);
+    }
+}
+
+async function searchLocation() {
+    const input = document.getElementById('map-search-input');
+    if (!input || !input.value.trim()) return;
+
+    const query = input.value.trim();
+    try {
+        const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&email=sokoloff@yandex.ru`;
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (data && data.length > 0) {
+            const lat = parseFloat(data[0].lat);
+            const lon = parseFloat(data[0].lon);
+
+            if (gisMap) {
+                gisMap.setView([lat, lon], 14);
+                L.marker([lat, lon]).addTo(gisMap)
+                    .bindPopup(`<b>${data[0].display_name}</b>`).openPopup();
+            }
+        } else {
+            alert('Локация не найдена. Попробуйте ввести "Завидово" или "Клин"');
+        }
+    } catch (e) {
+        console.error('Search error:', e);
+    }
+}
+
+function resetMap() {
+    if (gisMap) {
+        gisMap.setView([56.8587, 35.9176], 13);
+        updateCalculations(12.5);
+    }
+}
+
+// ==========================================
+// 3. MODAL POPUP & FORM HANDLERS
+// ==========================================
+function openRdModal() {
+    const modal = document.getElementById('rd-modal');
+    if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+}
+
+function closeRdModal() {
+    const modal = document.getElementById('rd-modal');
+    if (modal) {
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+    }
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeRdModal();
+});
+
+function handleModalSubmit(e) {
+    e.preventDefault();
+    alert('Спасибо! Инвесторский пакет Phase 2 и Teaser отправлены. Наш менеджер свяжется с вами.');
+    closeRdModal();
+}
+
+// ==========================================
+// 4. DOMContentLoaded BOOTSTRAP
+// ==========================================
+document.addEventListener('DOMContentLoaded', function() {
+    initGisMap();
+    switchAudienceMode('investor');
+    updateCalculations(12.5);
+
+    // Terminal animation setup
+    const restartBtn = document.getElementById('restart-ai-demo');
+    const statusText = document.getElementById('ai-status-text');
+    const statusPing = document.getElementById('ai-status-ping');
+    const logs = [
+        document.getElementById('log-1'),
+        document.getElementById('log-2'),
+        document.getElementById('log-3')
+    ];
+
+    function runTerminalAnimation() {
+        if (!logs[0]) return;
+        if (statusText) statusText.innerHTML = '<span class="material-symbols-outlined text-xs mr-1 animate-spin">sync</span>Running in silico audit...';
+        if (statusPing) statusPing.classList.remove('hidden');
+
+        logs.forEach(log => {
+            if (log) {
+                log.classList.remove('opacity-100', 'translate-y-0');
+                log.classList.add('opacity-0', 'translate-y-2');
+            }
+        });
+
+        setTimeout(() => {
+            if (logs[0]) {
+                logs[0].classList.remove('opacity-0', 'translate-y-2');
+                logs[0].classList.add('opacity-100', 'translate-y-0');
+            }
+        }, 300);
+
+        setTimeout(() => {
+            if (logs[1]) {
+                logs[1].classList.remove('opacity-0', 'translate-y-2');
+                logs[1].classList.add('opacity-100', 'translate-y-0');
+            }
+        }, 1100);
+
+        setTimeout(() => {
+            if (logs[2]) {
+                logs[2].classList.remove('opacity-0', 'translate-y-2');
+                logs[2].classList.add('opacity-100', 'translate-y-0');
+            }
+            if (statusText) statusText.innerHTML = '<span class="material-symbols-outlined text-xs mr-1 text-teal-400">check</span>Analysis complete';
+            if (statusPing) statusPing.classList.add('hidden');
+        }, 1900);
+    }
+
+    if (restartBtn) {
+        restartBtn.addEventListener('click', runTerminalAnimation);
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+# Ignore heavy dataset binaries and temp files
+.venv/
+__pycache__/
+*.fna
+*.fasta
+*.gz
+*.tar.gz
+*.bin
+*.ndb
+*.nhr
+*.nin
+*.nsq
+*.gff
+*.xml
+catboost_info/
+workspace-*/
+.planning/
+.pytest_cache/
+.trash/
+%TEMP%/
+artifacts/
+scratch/
