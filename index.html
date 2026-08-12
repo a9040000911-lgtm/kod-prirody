@@ -976,21 +976,7 @@ function initGisMap() {
             attribution: '© Сетка границ'
         });
 
-        const hogweedCoords = [
-            [56.8620, 35.9100],
-            [56.8650, 35.9250],
-            [56.8550, 35.9300],
-            [56.8520, 35.9120]
-        ];
-
-        currentPolygon = L.polygon(hogweedCoords, {
-            color: '#0ce6f2',
-            fillColor: '#0ce6f2',
-            fillOpacity: 0.35,
-            weight: 3
-        }).addTo(gisMap);
-
-        currentPolygon.bindPopup('<b>Очаг Борщевика Сосновского #12</b><br/>Площадь: 12.5 га<br/>Статус: Требует обработки «ГераЩит»').openPopup();
+        // Map starts empty per user directive. User can draw custom polygons or search locations.
 
         if (gisMap.pm) {
             gisMap.pm.addControls({
@@ -1012,6 +998,8 @@ function initGisMap() {
                     gisMap.removeLayer(currentPolygon);
                 }
                 currentPolygon = e.layer;
+                const shapesCountEl = document.getElementById('map-shapes-count');
+                if (shapesCountEl) shapesCountEl.textContent = 'Фигур на карте: 1';
                 updateCalculations();
             });
         }
@@ -1032,7 +1020,7 @@ function updateCalculations(areaHa) {
     const gerashieldEl = document.getElementById('map-rnai-rub');
     const modalPlotInput = document.getElementById('modal-plot-area');
 
-    let area = areaHa || 12.5;
+    let area = areaHa || 0;
 
     // Dynamic area from drawn polygon via Turf.js
     if (currentPolygon && typeof turf !== 'undefined') {
@@ -1041,11 +1029,19 @@ function updateCalculations(areaHa) {
             area = turf.area(geojson) / 10000; // sq.m -> hectares
         } catch(e) { console.warn('Turf area calc failed:', e); }
     }
-    area = Math.max(0.01, area);
+
+    if (area <= 0 || !currentPolygon) {
+        if (areaEl) areaEl.textContent = '0 га';
+        if (fineEl) fineEl.textContent = '0 ₽';
+        if (chemistryEl) chemistryEl.textContent = '0 ₽';
+        if (gerashieldEl) gerashieldEl.textContent = '0 ₽';
+        if (modalPlotInput) modalPlotInput.value = 'Участок не выбран';
+        return;
+    }
 
     // KoAP RF: base fine for juristic persons from 700k RUB
     const fine = Math.round(700000 + area * 10000);
-    // Chemical herbicide cost ~18k RUB/ha (Roundup equivalent)
+    // Chemical herbicide cost ~18k RUB/ha
     const chemCost = Math.round(area * 18000);
     // GeraShield 2026: 5 g/ha * $0.75/g = 375 RUB + SPc/adjuvants 300 RUB = 675 RUB/ha
     const gerashieldCost = Math.round(area * 675);
