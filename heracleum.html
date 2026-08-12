@@ -95,11 +95,10 @@
         background-color: #1f2937 !important;
         color: #00e0b8 !important;
     }
-    .material-symbols-outlined {
-        font-family: 'Material Symbols Outlined', sans-serif !important;
+    .material-symbols-outlined, .material-icons {
+        font-family: 'Material Symbols Outlined', 'Material Icons', sans-serif;
         font-weight: normal;
         font-style: normal;
-        font-size: 24px;
         line-height: 1;
         letter-spacing: normal;
         text-transform: none;
@@ -149,7 +148,7 @@
 </a>
 <nav class="hidden lg:flex gap-5 text-sm font-medium text-gray-600">
 <a class="text-teal-600 font-bold hover:text-teal-500 transition-colors flex items-center gap-1" href="index.html">
-<span class="material-symbols-outlined text-xs">arrow_back</span> Главная
+<span class="text-teal-600 font-bold">←</span> Главная
 </a>
 <a class="hover:text-teal-500 transition-colors" href="#mode-switcher">Аудитории</a>
 <a class="hover:text-teal-500 transition-colors" href="#map-calculator">ГИС-Карта</a>
@@ -161,7 +160,7 @@
 </nav>
 <div class="flex items-center gap-2">
 <a class="text-xs bg-gray-100 text-gray-700 font-bold px-3 py-2 rounded-full hover:bg-teal-500 hover:text-white transition-all flex items-center gap-1" href="index.html">
-<span class="material-symbols-outlined text-xs">arrow_back</span>
+<span class="font-bold">←</span>
 <span>На главную</span>
 </a>
 <button class="btn-gradient text-white px-5 py-2 rounded-full font-medium text-sm inline-block shadow-md hover:shadow-lg transition-all" onclick="openRdModal()">
