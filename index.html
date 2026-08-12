@@ -947,7 +947,7 @@ function initGisMap() {
                     <div class="text-center text-xs text-gray-500 font-mono">Интерактивный калькулятор активирован | Штраф КоАП МО: 150 000 ₽</div>
                 </div>
             `;
-            updateCalculations(12.5);
+            updateCalculations();
             return;
         }
 
@@ -1012,7 +1012,7 @@ function initGisMap() {
                     gisMap.removeLayer(currentPolygon);
                 }
                 currentPolygon = e.layer;
-                updateCalculations(12.5);
+                updateCalculations();
             });
         }
 
@@ -1029,13 +1029,26 @@ function updateCalculations(areaHa) {
     const areaEl = document.getElementById('calc-area');
     const fineEl = document.getElementById('calc-fine');
     const chemistryEl = document.getElementById('calc-chem');
-    const gerashieldEl = document.getElementById('calc-gerashield');
+    const gerashieldEl = document.getElementById('map-rnai-rub');
     const modalPlotInput = document.getElementById('modal-plot-area');
 
-    const area = areaHa || 12.5;
-    const fine = Math.round(150000 + area * 10000);
-    const chemCost = Math.round(area * 60000);
-    const gerashieldCost = Math.round(area * 4400);
+    let area = areaHa || 12.5;
+
+    // Dynamic area from drawn polygon via Turf.js
+    if (currentPolygon && typeof turf !== 'undefined') {
+        try {
+            const geojson = currentPolygon.toGeoJSON();
+            area = turf.area(geojson) / 10000; // sq.m -> hectares
+        } catch(e) { console.warn('Turf area calc failed:', e); }
+    }
+    area = Math.max(0.01, area);
+
+    // KoAP RF: base fine for juristic persons from 700k RUB
+    const fine = Math.round(700000 + area * 10000);
+    // Chemical herbicide cost ~18k RUB/ha (Roundup equivalent)
+    const chemCost = Math.round(area * 18000);
+    // GeraShield 2026: 5 g/ha * $0.75/g = 375 RUB + SPc/adjuvants 300 RUB = 675 RUB/ha
+    const gerashieldCost = Math.round(area * 675);
 
     if (areaEl) areaEl.textContent = area.toFixed(1) + ' га';
     if (fineEl) fineEl.textContent = fine.toLocaleString('ru-RU') + ' ₽';
@@ -1051,12 +1064,15 @@ function updateCalculations(areaHa) {
 function toggleCadastralLayer() {
     if (!gisMap || !baseCadastralLayer) return;
     const btn = document.getElementById('btn-cadastral');
+    const activeClasses = ['bg-teal-500', 'text-gray-950', 'font-bold', 'hover:bg-teal-400', 'focus:ring-teal-500/50'];
+    const inactiveClasses = ['bg-gray-800', 'text-gray-400', 'border', 'border-gray-700', 'hover:bg-gray-700', 'focus:ring-gray-500/50'];
     
     if (gisMap.hasLayer(baseCadastralLayer)) {
         gisMap.removeLayer(baseCadastralLayer);
         isCadastralActive = false;
         if (btn) {
-            btn.className = 'px-3 py-1.5 rounded-lg text-xs bg-gray-800 text-gray-400 hover:bg-gray-700 transition-colors border border-gray-700';
+            btn.classList.remove(...activeClasses);
+            btn.classList.add(...inactiveClasses);
             const span = document.getElementById('pkk-layer-label');
             if(span) span.textContent = 'Сетка Границ (Вкл)';
             else btn.textContent = 'Сетка Границ (Вкл)';
@@ -1065,7 +1081,8 @@ function toggleCadastralLayer() {
         gisMap.addLayer(baseCadastralLayer);
         isCadastralActive = true;
         if (btn) {
-            btn.className = 'px-3 py-1.5 rounded-lg text-xs bg-teal-500 text-gray-950 font-bold transition-colors shadow-md';
+            btn.classList.remove(...inactiveClasses);
+            btn.classList.add(...activeClasses);
             const span = document.getElementById('pkk-layer-label');
             if(span) span.textContent = 'Сетка Границ (Выкл)';
             else btn.textContent = 'Сетка Границ (Выкл)';
@@ -1078,22 +1095,19 @@ function toggleSatelliteLayer(mode) {
     const btnSat = document.getElementById('btn-sat-mode');
     const btnOsm = document.getElementById('btn-osm-mode');
 
+    const activeClasses = ['bg-teal-500', 'text-gray-950', 'font-bold', 'hover:bg-teal-400', 'focus:ring-teal-500/50'];
+    const inactiveClasses = ['bg-gray-800', 'text-gray-400', 'border', 'border-gray-700', 'hover:bg-gray-700', 'focus:ring-gray-500/50'];
+
     if (mode === 'sat') {
         if (baseOsmLayer && gisMap.hasLayer(baseOsmLayer)) gisMap.removeLayer(baseOsmLayer);
         if (baseSatLayer && !gisMap.hasLayer(baseSatLayer)) gisMap.addLayer(baseSatLayer);
-
-        if (btnSat) btnSat.className = 'px-3 py-1.5 rounded-lg text-xs bg-teal-500 text-gray-950 font-bold transition-colors shadow-md';
-        if (btnOsm) btnOsm.className = 'px-3 py-1.5 rounded-lg text-xs bg-gray-800 text-gray-400 hover:bg-gray-700 transition-colors border border-gray-700';
+        if (btnSat) { btnSat.classList.remove(...inactiveClasses); btnSat.classList.add(...activeClasses); }
+        if (btnOsm) { btnOsm.classList.remove(...activeClasses); btnOsm.classList.add(...inactiveClasses); }
     } else {
         if (baseSatLayer && gisMap.hasLayer(baseSatLayer)) gisMap.removeLayer(baseSatLayer);
         if (baseOsmLayer && !gisMap.hasLayer(baseOsmLayer)) gisMap.addLayer(baseOsmLayer);
-
-        if (btnOsm) btnOsm.className = 'px-3 py-1.5 rounded-lg text-xs bg-teal-500 text-gray-950 font-bold transition-colors shadow-md';
-        if (btnSat) btnSat.className = 'px-3 py-1.5 rounded-lg text-xs bg-gray-800 text-gray-400 hover:bg-gray-700 transition-colors border border-gray-700';
-    }
-} else {
-        if (gisMap.hasLayer(baseSatLayer)) gisMap.removeLayer(baseSatLayer);
-        if (!gisMap.hasLayer(baseOsmLayer)) gisMap.addLayer(baseOsmLayer);
+        if (btnOsm) { btnOsm.classList.remove(...inactiveClasses); btnOsm.classList.add(...activeClasses); }
+        if (btnSat) { btnSat.classList.remove(...activeClasses); btnSat.classList.add(...inactiveClasses); }
     }
 }
 
@@ -1138,6 +1152,12 @@ function resetMap() {
     if (currentPolygon) {
         gisMap.removeLayer(currentPolygon);
     }
+    // Remove search markers if any exist globally
+    gisMap.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+            gisMap.removeLayer(layer);
+        }
+    });
 
     // 4. Re-add default demo polygon
     const hogweedCoords = [
@@ -1157,12 +1177,16 @@ function resetMap() {
     currentPolygon.bindPopup('<b>Очаг Борщевика Сосновского #12</b><br/>Площадь: 12.5 га<br/>Статус: Требует обработки «ГераЩит»').openPopup();
 
     // 5. Reset calculations back to 12.5 ha
-    updateCalculations(12.5);
+    updateCalculations();
 }
 
 // ==========================================
 // 3. MODAL POPUP & FORM HANDLERS
 // ==========================================
+function orderSelectedPlot() {
+    openRdModal();
+}
+
 function openRdModal() {
     const modal = document.getElementById('rd-modal');
     if (modal) {
@@ -1185,7 +1209,27 @@ document.addEventListener('keydown', function(e) {
 
 function handleModalSubmit(e) {
     e.preventDefault();
-    alert('Спасибо! Инвесторский пакет Phase 2 и Teaser отправлены. Наш менеджер свяжется с вами.');
+    // Имитация отправки email и реальное скачивание файлов
+    alert('Спасибо! Инвесторский пакет Phase 2 и Teaser отправлены на ваш email. Начинается скачивание файлов...');
+    
+    // Скачивание тизера
+    const teaserLink = document.createElement('a');
+    teaserLink.href = 'HOGWEED_SCIENTIFIC_PARTNER_DECK_2026.pdf';
+    teaserLink.download = 'Код_Природы_Teaser_2026.pdf';
+    document.body.appendChild(teaserLink);
+    teaserLink.click();
+    document.body.removeChild(teaserLink);
+
+    // Скачивание финмодели
+    setTimeout(() => {
+        const cogsLink = document.createElement('a');
+        cogsLink.href = 'RNAi_Biopesticide_COGS_Validation_2024_2026.pdf';
+        cogsLink.download = 'Код_Природы_Unit_Economics_2026.pdf';
+        document.body.appendChild(cogsLink);
+        cogsLink.click();
+        document.body.removeChild(cogsLink);
+    }, 1000);
+
     closeRdModal();
 }
 
@@ -1195,58 +1239,9 @@ function handleModalSubmit(e) {
 document.addEventListener('DOMContentLoaded', function() {
     initGisMap();
     switchAudienceMode('investor');
-    updateCalculations(12.5);
-
-    // Terminal animation setup
-    const restartBtn = document.getElementById('restart-ai-demo');
-    const statusText = document.getElementById('ai-status-text');
-    const statusPing = document.getElementById('ai-status-ping');
-    const logs = [
-        document.getElementById('log-1'),
-        document.getElementById('log-2'),
-        document.getElementById('log-3')
-    ];
-
-    function runTerminalAnimation() {
-        if (!logs[0]) return;
-        if (statusText) statusText.innerHTML = '<span class="material-symbols-outlined text-xs mr-1 animate-spin">sync</span>Running in silico audit...';
-        if (statusPing) statusPing.classList.remove('hidden');
-
-        logs.forEach(log => {
-            if (log) {
-                log.classList.remove('opacity-100', 'translate-y-0');
-                log.classList.add('opacity-0', 'translate-y-2');
-            }
-        });
-
-        setTimeout(() => {
-            if (logs[0]) {
-                logs[0].classList.remove('opacity-0', 'translate-y-2');
-                logs[0].classList.add('opacity-100', 'translate-y-0');
-            }
-        }, 300);
-
-        setTimeout(() => {
-            if (logs[1]) {
-                logs[1].classList.remove('opacity-0', 'translate-y-2');
-                logs[1].classList.add('opacity-100', 'translate-y-0');
-            }
-        }, 1100);
-
-        setTimeout(() => {
-            if (logs[2]) {
-                logs[2].classList.remove('opacity-0', 'translate-y-2');
-                logs[2].classList.add('opacity-100', 'translate-y-0');
-            }
-            if (statusText) statusText.innerHTML = '<span class="material-symbols-outlined text-xs mr-1 text-teal-400">check</span>Analysis complete';
-            if (statusPing) statusPing.classList.add('hidden');
-        }, 1900);
-    }
-
-    if (restartBtn) {
-        restartBtn.addEventListener('click', runTerminalAnimation);
-    }
+    updateCalculations();
 });
+
 </script>
 
 </body>

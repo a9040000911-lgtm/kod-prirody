@@ -400,13 +400,13 @@
 </div>
 
 <!-- Layer Toggles -->
-<div class="flex items-center gap-2 font-bold">
-<button class="px-3 py-1.5 bg-teal-500 text-white rounded-lg shadow transition-all" id="btn-sat-mode" onclick="toggleSatelliteLayer('sat')">Спутник</button>
-<button class="px-3 py-1.5 bg-gray-800 text-gray-400 rounded-lg hover:bg-gray-700 transition-all" id="btn-osm-mode" onclick="toggleSatelliteLayer('osm')">Схема</button>
-<button class="px-3 py-1.5 bg-gray-800 text-teal-400 rounded-lg hover:bg-gray-700 border border-teal-500/40 transition-all" onclick="toggleCadastralLayer()">
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 bg-gray-800 text-gray-400 rounded-lg border border-gray-700 hover:bg-gray-700 transition-all active:scale-95 text-xs" id="btn-sat-mode" onclick="toggleSatelliteLayer('sat')">Спутник</button>
+<button class="px-3 py-1.5 bg-teal-500 text-gray-950 font-bold rounded-lg shadow-md hover:bg-teal-400 transition-all active:scale-95 text-xs" id="btn-osm-mode" onclick="toggleSatelliteLayer('osm')">Схема</button>
+<button id="btn-cadastral" class="px-3 py-1.5 bg-gray-800 text-teal-400 rounded-lg hover:bg-gray-700 border border-teal-500/40 transition-all active:scale-95" onclick="toggleCadastralLayer()">
 <span id="pkk-layer-label">Сетка Границ (Вкл)</span>
 </button>
-<button class="px-3 py-1.5 bg-red-950 text-red-400 rounded-lg hover:bg-red-900 border border-red-800 transition-all" onclick="resetMap()">Сброс</button>
+<button class="px-3 py-1.5 bg-red-950 text-red-400 rounded-lg hover:bg-red-900 border border-red-800 transition-all" id="btn-reset-map" onclick="resetMap()">Сброс</button>
 </div>
 </div>
 
@@ -856,11 +856,12 @@
       <div class="font-bold text-gray-900 mb-1">2027 (Phase 3): Испытания ВНИИФ &amp; Пилоты</div>
       <div class="text-gray-600">Регистрационные полевые испытания ВНИИФ, токсикологические экспертизы, пилоты B2B/B2G на 80+ га.</div>
     </div>
-    
-
-<!-- Exit Strategy & M&A Target Card -->
-
-
+    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+      <div class="font-bold text-gray-900 mb-1">2028 (Phase 4): Госрегистрация ФЗ-109 &amp; Масштабирование</div>
+      <div class="text-gray-600">Подача полного регистрационного досье био-СЗР в Минсельхоз РФ, получение свидетельства, запуск промышленного производства.</div>
+    </div>
+  </div>
+</div>
 </div>
 </section>
 <!-- END: MODULE 6, 7, 9, 10, 11 -->
@@ -1418,13 +1419,26 @@ function updateCalculations(areaHa) {
     const areaEl = document.getElementById('calc-area');
     const fineEl = document.getElementById('calc-fine');
     const chemistryEl = document.getElementById('calc-chem');
-    const gerashieldEl = document.getElementById('calc-gerashield');
+    const gerashieldEl = document.getElementById('map-rnai-rub');
     const modalPlotInput = document.getElementById('modal-plot-area');
 
-    const area = areaHa || 12.5;
-    const fine = Math.round(150000 + area * 10000);
-    const chemCost = Math.round(area * 60000);
-    const gerashieldCost = Math.round(area * 4400);
+    let area = areaHa || 12.5;
+
+    // Dynamic area from drawn polygon via Turf.js
+    if (currentPolygon && typeof turf !== 'undefined') {
+        try {
+            const geojson = currentPolygon.toGeoJSON();
+            area = turf.area(geojson) / 10000; // sq.m -> hectares
+        } catch(e) { console.warn('Turf area calc failed:', e); }
+    }
+    area = Math.max(0.01, area);
+
+    // KoAP RF: base fine for juristic persons from 700k RUB
+    const fine = Math.round(700000 + area * 10000);
+    // Chemical herbicide cost ~18k RUB/ha (Roundup equivalent)
+    const chemCost = Math.round(area * 18000);
+    // GeraShield 2026: 5 g/ha * $0.75/g = 375 RUB + SPc/adjuvants 300 RUB = 675 RUB/ha
+    const gerashieldCost = Math.round(area * 675);
 
     if (areaEl) areaEl.textContent = area.toFixed(1) + ' га';
     if (fineEl) fineEl.textContent = fine.toLocaleString('ru-RU') + ' ₽';
@@ -1559,6 +1573,10 @@ function resetMap() {
 // ==========================================
 // 3. MODAL POPUP & FORM HANDLERS
 // ==========================================
+function orderSelectedPlot() {
+    openRdModal();
+}
+
 function openRdModal() {
     const modal = document.getElementById('rd-modal');
     if (modal) {
@@ -1612,57 +1630,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initGisMap();
     switchAudienceMode('investor');
     updateCalculations();
-
-    // Terminal animation setup
-    const restartBtn = document.getElementById('restart-ai-demo');
-    const statusText = document.getElementById('ai-status-text');
-    const statusPing = document.getElementById('ai-status-ping');
-    const logs = [
-        document.getElementById('log-1'),
-        document.getElementById('log-2'),
-        document.getElementById('log-3')
-    ];
-
-    function runTerminalAnimation() {
-        if (!logs[0]) return;
-        if (statusText) statusText.innerHTML = '<span class="material-symbols-outlined text-xs mr-1 animate-spin">sync</span>Running in silico audit...';
-        if (statusPing) statusPing.classList.remove('hidden');
-
-        logs.forEach(log => {
-            if (log) {
-                log.classList.remove('opacity-100', 'translate-y-0');
-                log.classList.add('opacity-0', 'translate-y-2');
-            }
-        });
-
-        setTimeout(() => {
-            if (logs[0]) {
-                logs[0].classList.remove('opacity-0', 'translate-y-2');
-                logs[0].classList.add('opacity-100', 'translate-y-0');
-            }
-        }, 300);
-
-        setTimeout(() => {
-            if (logs[1]) {
-                logs[1].classList.remove('opacity-0', 'translate-y-2');
-                logs[1].classList.add('opacity-100', 'translate-y-0');
-            }
-        }, 1100);
-
-        setTimeout(() => {
-            if (logs[2]) {
-                logs[2].classList.remove('opacity-0', 'translate-y-2');
-                logs[2].classList.add('opacity-100', 'translate-y-0');
-            }
-            if (statusText) statusText.innerHTML = '<span class="material-symbols-outlined text-xs mr-1 text-teal-400">check</span>Analysis complete';
-            if (statusPing) statusPing.classList.add('hidden');
-        }, 1900);
-    }
-
-    if (restartBtn) {
-        restartBtn.addEventListener('click', runTerminalAnimation);
-    }
 });
+
 </script>
 
 </body>
