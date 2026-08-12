@@ -1573,7 +1573,27 @@ document.addEventListener('keydown', function(e) {
 
 function handleModalSubmit(e) {
     e.preventDefault();
-    alert('Спасибо! Инвесторский пакет Phase 2 и Teaser отправлены. Наш менеджер свяжется с вами.');
+    // Имитация отправки email и реальное скачивание файлов
+    alert('Спасибо! Инвесторский пакет Phase 2 и Teaser отправлены на ваш email. Начинается скачивание файлов...');
+    
+    // Скачивание тизера
+    const teaserLink = document.createElement('a');
+    teaserLink.href = 'HOGWEED_SCIENTIFIC_PARTNER_DECK_2026.pdf';
+    teaserLink.download = 'Код_Природы_Teaser_2026.pdf';
+    document.body.appendChild(teaserLink);
+    teaserLink.click();
+    document.body.removeChild(teaserLink);
+
+    // Скачивание финмодели
+    setTimeout(() => {
+        const cogsLink = document.createElement('a');
+        cogsLink.href = 'RNAi_Biopesticide_COGS_Validation_2024_2026.pdf';
+        cogsLink.download = 'Код_Природы_Unit_Economics_2026.pdf';
+        document.body.appendChild(cogsLink);
+        cogsLink.click();
+        document.body.removeChild(cogsLink);
+    }, 1000);
+
     closeRdModal();
 }
 
