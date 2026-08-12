@@ -146,25 +146,47 @@
 
 
 <!-- RD Modal -->
-<div id="rd-modal" class="hidden fixed inset-0 z-50 items-center justify-center bg-gray-950/80 backdrop-blur-sm p-4">
-    <div class="bg-white rounded-3xl w-full max-w-md shadow-2xl overflow-hidden relative">
-        <button onclick="closeRdModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-900">
-            <span class="material-symbols-outlined">close</span>
+<div id="rd-modal" class="hidden flex fixed inset-0 z-50 items-center justify-center bg-gray-950/80 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-3xl w-full max-w-md shadow-2xl overflow-hidden relative border border-gray-100">
+        <button onclick="closeRdModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-900 p-1">
+            ✕
         </button>
         <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Запрос Паспорта и Финмодели</h3>
-            <p class="text-sm text-gray-600 mb-6">Получите полные расчеты unit-экономики и технологическое досье на email.</p>
-            <form onsubmit="handleModalSubmit(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-gray-700 mb-1">Участок обработки (опционально)</label>
-                    <input type="text" id="modal-plot-area" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm" placeholder="Не выбран">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-700 mb-1">Email</label>
-                    <input type="email" required class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="your@email.com">
-                </div>
-                <button type="submit" class="w-full py-3 bg-teal-500 hover:bg-teal-400 text-gray-950 font-bold rounded-xl transition-colors">Получить материалы</button>
-            </form>
+            <div class="flex items-center gap-2 mb-3">
+                <span class="bg-teal-100 text-teal-800 text-xs px-2.5 py-1 rounded-full font-bold">Документы R&amp;D Phase 2</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Скачать Тизер &amp; Финмодель</h3>
+            <p class="text-xs text-gray-600 mb-6">Выберите интересующий документ для прямого скачивания или онлайн просмотра:</p>
+            
+            <div class="space-y-3 mb-6">
+                <!-- PDF 1: Scientific Partner Deck / Teaser -->
+                <a href="HOGWEED_SCIENTIFIC_PARTNER_DECK_2026.pdf" target="_blank" download="Код_Природы_Teaser_2026.pdf" class="flex items-center justify-between p-3.5 bg-gray-50 hover:bg-teal-50 border border-gray-200 hover:border-teal-300 rounded-2xl transition-all group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-red-100 text-red-600 flex items-center justify-center font-bold text-xs">PDF</div>
+                        <div>
+                            <div class="text-xs font-bold text-gray-900 group-hover:text-teal-700">Презентация &amp; Паспорт Проекта</div>
+                            <div class="text-[11px] text-gray-500">HOGWEED_DECK_2026.pdf (4.3 МБ)</div>
+                        </div>
+                    </div>
+                    <span class="text-xs bg-teal-500 text-gray-950 font-bold px-3 py-1.5 rounded-xl group-hover:bg-teal-400 transition-colors">Скачать 📄</span>
+                </a>
+
+                <!-- PDF 2: COGS Validation / Finmodel -->
+                <a href="RNAi_Biopesticide_COGS_Validation_2024_2026.pdf" target="_blank" download="Код_Природы_Unit_Economics_2026.pdf" class="flex items-center justify-between p-3.5 bg-gray-50 hover:bg-teal-50 border border-gray-200 hover:border-teal-300 rounded-2xl transition-all group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-xs">PDF</div>
+                        <div>
+                            <div class="text-xs font-bold text-gray-900 group-hover:text-teal-700">Финмодель &amp; COGS (Валидация)</div>
+                            <div class="text-[11px] text-gray-500">COGS_Validation_2026.pdf (97 КБ)</div>
+                        </div>
+                    </div>
+                    <span class="text-xs bg-teal-500 text-gray-950 font-bold px-3 py-1.5 rounded-xl group-hover:bg-teal-400 transition-colors">Скачать 📊</span>
+                </a>
+            </div>
+
+            <div class="pt-4 border-t border-gray-100 text-center">
+                <button onclick="closeRdModal()" class="text-xs text-gray-500 hover:text-gray-800 font-medium">Закрыть окно</button>
+            </div>
         </div>
     </div>
 </div>
@@ -794,8 +816,8 @@
 <button class="btn-gradient text-white px-8 py-4 rounded-full font-bold text-lg shadow-[0_0_20px_rgba(0,224,184,0.4)] hover:shadow-[0_0_30px_rgba(0,224,184,0.6)] transition-all" onclick="openRdModal()">
                 Запросить R&amp;D-проект
 </button>
-<a class="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-8 py-4 rounded-full font-bold text-lg transition-colors flex items-center justify-center gap-2" href="mailto:sokoloff@yandex.ru?subject=Запрос%20презентации%20платформы">
-<span class="material-symbols-outlined">download</span> Скачать презентацию
+<a class="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-8 py-4 rounded-full font-bold text-lg transition-colors flex items-center justify-center gap-2" href="HOGWEED_SCIENTIFIC_PARTNER_DECK_2026.pdf" target="_blank" download="Код_Природы_Презентация_2026.pdf">
+<span class="material-symbols-outlined">download</span> Скачать презентацию (PDF)
 </a>
 </div>
 </div>
