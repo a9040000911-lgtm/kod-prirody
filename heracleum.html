@@ -1434,10 +1434,23 @@ function toggleCadastralLayer() {
 
 function toggleSatelliteLayer(mode) {
     if (!gisMap) return;
+    const btnSat = document.getElementById('btn-sat-mode');
+    const btnOsm = document.getElementById('btn-osm-mode');
+
     if (mode === 'sat') {
-        if (gisMap.hasLayer(baseOsmLayer)) gisMap.removeLayer(baseOsmLayer);
-        if (!gisMap.hasLayer(baseSatLayer)) gisMap.addLayer(baseSatLayer);
+        if (baseOsmLayer && gisMap.hasLayer(baseOsmLayer)) gisMap.removeLayer(baseOsmLayer);
+        if (baseSatLayer && !gisMap.hasLayer(baseSatLayer)) gisMap.addLayer(baseSatLayer);
+
+        if (btnSat) btnSat.className = 'px-3 py-1.5 rounded-lg text-xs bg-teal-500 text-gray-950 font-bold transition-colors shadow-md';
+        if (btnOsm) btnOsm.className = 'px-3 py-1.5 rounded-lg text-xs bg-gray-800 text-gray-400 hover:bg-gray-700 transition-colors border border-gray-700';
     } else {
+        if (baseSatLayer && gisMap.hasLayer(baseSatLayer)) gisMap.removeLayer(baseSatLayer);
+        if (baseOsmLayer && !gisMap.hasLayer(baseOsmLayer)) gisMap.addLayer(baseOsmLayer);
+
+        if (btnOsm) btnOsm.className = 'px-3 py-1.5 rounded-lg text-xs bg-teal-500 text-gray-950 font-bold transition-colors shadow-md';
+        if (btnSat) btnSat.className = 'px-3 py-1.5 rounded-lg text-xs bg-gray-800 text-gray-400 hover:bg-gray-700 transition-colors border border-gray-700';
+    }
+} else {
         if (gisMap.hasLayer(baseSatLayer)) gisMap.removeLayer(baseSatLayer);
         if (!gisMap.hasLayer(baseOsmLayer)) gisMap.addLayer(baseOsmLayer);
     }
