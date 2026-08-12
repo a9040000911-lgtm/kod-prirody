@@ -887,6 +887,8 @@ function switchAudienceMode(mode) {
 let gisMap = null;
 let baseOsmLayer = null;
 let baseSatLayer = null;
+let baseCadastralLayer = null;
+let isCadastralActive = false;
 let currentPolygon = null;
 
 function initGisMap() {
@@ -911,6 +913,13 @@ function initGisMap() {
         baseSatLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
             maxZoom: 18,
             attribution: '© Esri'
+        });
+
+        // Росреестр Публичная Кадастровая Карта (ПКК Сетка Границ)
+        baseCadastralLayer = L.tileLayer('https://pkk.rosreestr.ru/arcgis/rest/services/PKK6/Cadastre/MapServer/tile/{z}/{y}/{x}', {
+            maxZoom: 18,
+            opacity: 0.75,
+            attribution: '© Росреестр ПКК'
         });
 
         // Add Demo Hogweed Hotspot Polygon in Tver Region
@@ -984,6 +993,28 @@ function updateCalculations(areaHa) {
 
     if (modalPlotInput) {
         modalPlotInput.value = `Участок Tver-Hotspot #${Math.floor(Math.random()*900+100)} (${area.toFixed(1)} га)`;
+    }
+}
+
+
+function toggleCadastralLayer() {
+    if (!gisMap || !baseCadastralLayer) return;
+    const btn = document.getElementById('btn-cadastral');
+    
+    if (gisMap.hasLayer(baseCadastralLayer)) {
+        gisMap.removeLayer(baseCadastralLayer);
+        isCadastralActive = false;
+        if (btn) {
+            btn.className = 'px-3 py-1.5 rounded-lg text-xs bg-gray-800 text-gray-400 hover:bg-gray-700 transition-colors border border-gray-700';
+            btn.textContent = 'Сетка Границ (Вкл)';
+        }
+    } else {
+        gisMap.addLayer(baseCadastralLayer);
+        isCadastralActive = true;
+        if (btn) {
+            btn.className = 'px-3 py-1.5 rounded-lg text-xs bg-teal-500 text-gray-950 font-bold transition-colors shadow-md';
+            btn.textContent = 'Сетка Границ (Выкл)';
+        }
     }
 }
 
