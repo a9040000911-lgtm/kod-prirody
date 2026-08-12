@@ -1284,33 +1284,29 @@ function initGisMap() {
     if (!mapElement || gisMap) return;
 
     try {
-        // Tver region coordinates [56.8587, 35.9176]
         gisMap = L.map('gis-map', {
             center: [56.8587, 35.9176],
             zoom: 13,
-            zoomControl: true
+            zoomControl: true,
+            fadeAnimation: true
         });
 
-        // OpenStreetMap Base Tile Layer
         baseOsmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
-            attribution: '© OpenStreetMap contributors'
+            attribution: '© OpenStreetMap'
         }).addTo(gisMap);
 
-        // Esri World Imagery Satellite Tile Layer
         baseSatLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
             maxZoom: 18,
-            attribution: '© Esri'
+            attribution: '© Esri Satellite'
         });
 
-        // Росреестр Публичная Кадастровая Карта (ПКК Сетка Границ)
-        baseCadastralLayer = L.tileLayer('https://pkk.rosreestr.ru/arcgis/rest/services/PKK6/Cadastre/MapServer/tile/{z}/{y}/{x}', {
-            maxZoom: 18,
-            opacity: 0.75,
-            attribution: '© Росреестр ПКК'
+        baseCadastralLayer = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            opacity: 0.65,
+            attribution: '© Сетка границ'
         });
 
-        // Add Demo Hogweed Hotspot Polygon in Tver Region
         const hogweedCoords = [
             [56.8620, 35.9100],
             [56.8650, 35.9250],
@@ -1327,7 +1323,6 @@ function initGisMap() {
 
         currentPolygon.bindPopup('<b>Очаг Борщевика Сосновского #12</b><br/>Площадь: 12.5 га<br/>Статус: Требует обработки «ГераЩит»').openPopup();
 
-        // Initialize Geoman Controls if available
         if (gisMap.pm) {
             gisMap.pm.addControls({
                 position: 'topleft',
@@ -1352,10 +1347,9 @@ function initGisMap() {
             });
         }
 
-        // Trigger resize calculation
-        setTimeout(() => {
-            if (gisMap) gisMap.invalidateSize();
-        }, 400);
+        setTimeout(function() {
+            if (gisMap) gisMap.invalidateSize(true);
+        }, 200);
 
     } catch (err) {
         console.error('Error initializing GIS map:', err);
