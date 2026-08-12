@@ -50,9 +50,9 @@
 </script>
 
 <!-- Leaflet & GIS JS CDN -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@geoman-io/leaflet-geoman-free@2.16.0/dist/leaflet-geoman.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+<script src="https://unpkg.com/@turf/turf@6/turf.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@geoman-io/leaflet-geoman-free@2.16.0/dist/leaflet-geoman.min.js" defer></script>
 
 <style>
     html {
@@ -117,7 +117,7 @@
 <a class="sr-only focus:not-sr-only focus:absolute focus:p-4 focus:bg-white focus:z-[100]" href="#mode-switcher">Skip to content</a>
 
 <!-- RD Modal (Правильно помещен в body) -->
-<div id="rd-modal" class="hidden fixed inset-0 z-50 items-center justify-center bg-gray-950/80 backdrop-blur-sm p-4">
+<div id="rd-modal" class="hidden flex fixed inset-0 z-50 items-center justify-center bg-gray-950/80 backdrop-blur-sm p-4">
     <div class="bg-white rounded-3xl w-full max-w-md shadow-2xl overflow-hidden relative">
         <button onclick="closeRdModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-900">
             <span class="material-symbols-outlined">close</span>
@@ -131,8 +131,8 @@
                     <input type="text" id="modal-plot-area" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm" placeholder="Не выбран">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-gray-700 mb-1">Email</label>
-                    <input type="email" required class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="your@email.com">
+                    <label for="modal-email" class="block text-xs font-bold text-gray-700 mb-1">Email</label>
+                    <input type="email" id="modal-email" required class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="your@email.com">
                 </div>
                 <button type="submit" class="w-full py-3 bg-teal-500 hover:bg-teal-400 text-gray-950 font-bold rounded-xl transition-colors">Получить материалы</button>
             </form>
@@ -257,7 +257,7 @@
 <!-- INVESTOR MODE CONTENT -->
 <div class="audience-content block" id="content-investor">
 <div class="grid md:grid-cols-3 gap-6">
-<div class="bg-gray-800/90 p-6 rounded-2xl border border-gray-700">
+<div id="science" class="bg-gray-800/90 p-6 rounded-2xl border border-gray-700">
 <div class="text-teal-400 text-xs font-bold uppercase mb-2">Финансовые цели</div>
 <h3 class="text-xl font-bold mb-3">Раунд Phase 2: 4.5 млн ₽</h3>
 <p class="text-gray-300 text-sm leading-relaxed mb-4">Де-рискинг через 2-стадийный гейт: Sub-MVP Gate 2A (400 тыс. ₽) проверят проникание и нокдаун за 30 дней. Основной транш 4.1 млн ₽ разблокируется только после успеха.</p>
@@ -312,7 +312,7 @@
 <div class="text-xs text-teal-300 font-mono">Биосинтез E. coli HT115 / RNASwift</div>
 </div>
 <div class="bg-gray-800/90 p-6 rounded-2xl border border-gray-700">
-<div class="text-teal-400 text-xs font-bold uppercase mb-2">Нано-доставка &amp; УФ</div>
+<div id="rinalmo" class="text-teal-400 text-xs font-bold uppercase mb-2">Нано-доставка &amp; УФ (RiNALMo)</div>
 <h3 class="text-xl font-bold mb-3">СТП-Полиплекс™ + LTNP</h3>
 <p class="text-gray-300 text-sm leading-relaxed mb-4">Самосборка звёздчатых поликатионов (30-80 нм, Zeta ≥ +25 мВ). Преодоление кутикулы борщевика. Лигнин-таниновые наночастицы дают &gt;95% УФ-защиты на 30 дней.</p>
 <div class="text-xs text-teal-300 font-mono">ΔG &gt; -150 ккал/моль, офф-таргет &lt; 0.1%</div>
@@ -328,7 +328,7 @@
 </div>
 
 <!-- Detailed Phase 2 Budget Allocation -->
-<div class="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm mt-8">
+<div id="lean" class="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm mt-8">
   <div class="flex items-center justify-between mb-4">
     <div>
       <span class="text-teal-600 font-bold text-xs uppercase tracking-wider">Детализация Сметы R&amp;D Phase 2</span>
@@ -596,6 +596,7 @@ let baseSatLayer = null;
 let baseCadastralLayer = null;
 let isCadastralActive = false;
 let currentPolygon = null;
+let searchMarker = null;
 
 function initGisMap() {
     const mapElement = document.getElementById('gis-map');
@@ -640,7 +641,12 @@ function initGisMap() {
             });
 
             gisMap.on('pm:create', function(e) {
-                if (currentPolygon) {
+                gisMap.eachLayer(function(layer) {
+                    if (layer !== e.layer && layer.pm && (layer instanceof L.Polygon || layer instanceof L.Rectangle || layer instanceof L.Circle)) {
+                        gisMap.removeLayer(layer);
+                    }
+                });
+                if (currentPolygon && currentPolygon !== e.layer) {
                     gisMap.removeLayer(currentPolygon);
                 }
                 currentPolygon = e.layer;
@@ -698,21 +704,36 @@ function updateCalculations(areaHa) {
 
 function toggleCadastralLayer() {
     if (!gisMap || !baseCadastralLayer) return;
+    const label = document.getElementById('pkk-layer-label');
+    const btn = document.getElementById('btn-cadastral');
     if (gisMap.hasLayer(baseCadastralLayer)) {
         gisMap.removeLayer(baseCadastralLayer);
+        isCadastralActive = false;
+        if (label) label.textContent = 'Сетка Границ (Выкл)';
+        if (btn) btn.className = 'px-3 py-1.5 bg-gray-800 text-gray-400 rounded-lg border border-gray-700 hover:bg-gray-700 transition-all active:scale-95 text-xs';
     } else {
         gisMap.addLayer(baseCadastralLayer);
+        isCadastralActive = true;
+        if (label) label.textContent = 'Сетка Границ (Вкл)';
+        if (btn) btn.className = 'px-3 py-1.5 bg-teal-500 text-gray-950 font-bold rounded-lg shadow-md hover:bg-teal-400 transition-all active:scale-95 text-xs';
     }
 }
 
 function toggleSatelliteLayer(mode) {
     if (!gisMap) return;
+    const btnSat = document.getElementById('btn-sat-mode');
+    const btnOsm = document.getElementById('btn-osm-mode');
+
     if (mode === 'sat') {
         if (gisMap.hasLayer(baseOsmLayer)) gisMap.removeLayer(baseOsmLayer);
         if (!gisMap.hasLayer(baseSatLayer)) gisMap.addLayer(baseSatLayer);
+        if (btnSat) btnSat.className = 'px-3 py-1.5 bg-teal-500 text-gray-950 font-bold rounded-lg shadow-md hover:bg-teal-400 transition-all active:scale-95 text-xs';
+        if (btnOsm) btnOsm.className = 'px-3 py-1.5 bg-gray-800 text-gray-400 rounded-lg border border-gray-700 hover:bg-gray-700 transition-all active:scale-95 text-xs';
     } else {
         if (gisMap.hasLayer(baseSatLayer)) gisMap.removeLayer(baseSatLayer);
         if (!gisMap.hasLayer(baseOsmLayer)) gisMap.addLayer(baseOsmLayer);
+        if (btnOsm) btnOsm.className = 'px-3 py-1.5 bg-teal-500 text-gray-950 font-bold rounded-lg shadow-md hover:bg-teal-400 transition-all active:scale-95 text-xs';
+        if (btnSat) btnSat.className = 'px-3 py-1.5 bg-gray-800 text-gray-400 rounded-lg border border-gray-700 hover:bg-gray-700 transition-all active:scale-95 text-xs';
     }
 }
 
@@ -722,15 +743,20 @@ async function searchLocation() {
 
     try {
         const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(input.value.trim())}`;
-        const res = await fetch(url);
+        const res = await fetch(url, {
+            headers: { 'User-Agent': 'GeroShield-App/1.0 (kod-prirody.ru)' }
+        });
         const data = await res.json();
 
         if (data && data.length > 0) {
             const lat = parseFloat(data[0].lat);
             const lon = parseFloat(data[0].lon);
             if (gisMap) {
+                if (searchMarker) {
+                    gisMap.removeLayer(searchMarker);
+                }
                 gisMap.setView([lat, lon], 14);
-                L.marker([lat, lon]).addTo(gisMap).bindPopup(`<b>${data[0].display_name}</b>`).openPopup();
+                searchMarker = L.marker([lat, lon]).addTo(gisMap).bindPopup(`<b>${data[0].display_name}</b>`).openPopup();
             }
         } else {
             alert('Локация не найдена');
@@ -750,6 +776,13 @@ function resetMap() {
         gisMap.removeLayer(currentPolygon);
         currentPolygon = null;
     }
+    if (searchMarker) {
+        gisMap.removeLayer(searchMarker);
+        searchMarker = null;
+    }
+    const shapesCountEl = document.getElementById('map-shapes-count');
+    if (shapesCountEl) shapesCountEl.textContent = 'Фигур на карте: 0';
+
     updateCalculations(0);
 }
 

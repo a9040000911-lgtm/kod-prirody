@@ -907,6 +907,7 @@ let baseSatLayer = null;
 let baseCadastralLayer = null;
 let isCadastralActive = false;
 let currentPolygon = null;
+let searchMarker = null;
 
 function initGisMap() {
     const mapElement = document.getElementById('gis-map');
@@ -951,7 +952,12 @@ function initGisMap() {
             });
 
             gisMap.on('pm:create', function(e) {
-                if (currentPolygon) {
+                gisMap.eachLayer(function(layer) {
+                    if (layer !== e.layer && layer.pm && (layer instanceof L.Polygon || layer instanceof L.Rectangle || layer instanceof L.Circle)) {
+                        gisMap.removeLayer(layer);
+                    }
+                });
+                if (currentPolygon && currentPolygon !== e.layer) {
                     gisMap.removeLayer(currentPolygon);
                 }
                 currentPolygon = e.layer;
@@ -1009,21 +1015,36 @@ function updateCalculations(areaHa) {
 
 function toggleCadastralLayer() {
     if (!gisMap || !baseCadastralLayer) return;
+    const label = document.getElementById('pkk-layer-label');
+    const btn = document.getElementById('btn-cadastral');
     if (gisMap.hasLayer(baseCadastralLayer)) {
         gisMap.removeLayer(baseCadastralLayer);
+        isCadastralActive = false;
+        if (label) label.textContent = 'Сетка Границ (Выкл)';
+        if (btn) btn.className = 'px-3 py-1.5 bg-gray-800 text-gray-400 rounded-lg border border-gray-700 hover:bg-gray-700 transition-all active:scale-95 text-xs';
     } else {
         gisMap.addLayer(baseCadastralLayer);
+        isCadastralActive = true;
+        if (label) label.textContent = 'Сетка Границ (Вкл)';
+        if (btn) btn.className = 'px-3 py-1.5 bg-teal-500 text-gray-950 font-bold rounded-lg shadow-md hover:bg-teal-400 transition-all active:scale-95 text-xs';
     }
 }
 
 function toggleSatelliteLayer(mode) {
     if (!gisMap) return;
+    const btnSat = document.getElementById('btn-sat-mode');
+    const btnOsm = document.getElementById('btn-osm-mode');
+
     if (mode === 'sat') {
         if (gisMap.hasLayer(baseOsmLayer)) gisMap.removeLayer(baseOsmLayer);
         if (!gisMap.hasLayer(baseSatLayer)) gisMap.addLayer(baseSatLayer);
+        if (btnSat) btnSat.className = 'px-3 py-1.5 bg-teal-500 text-gray-950 font-bold rounded-lg shadow-md hover:bg-teal-400 transition-all active:scale-95 text-xs';
+        if (btnOsm) btnOsm.className = 'px-3 py-1.5 bg-gray-800 text-gray-400 rounded-lg border border-gray-700 hover:bg-gray-700 transition-all active:scale-95 text-xs';
     } else {
         if (gisMap.hasLayer(baseSatLayer)) gisMap.removeLayer(baseSatLayer);
         if (!gisMap.hasLayer(baseOsmLayer)) gisMap.addLayer(baseOsmLayer);
+        if (btnOsm) btnOsm.className = 'px-3 py-1.5 bg-teal-500 text-gray-950 font-bold rounded-lg shadow-md hover:bg-teal-400 transition-all active:scale-95 text-xs';
+        if (btnSat) btnSat.className = 'px-3 py-1.5 bg-gray-800 text-gray-400 rounded-lg border border-gray-700 hover:bg-gray-700 transition-all active:scale-95 text-xs';
     }
 }
 
@@ -1033,15 +1054,20 @@ async function searchLocation() {
 
     try {
         const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(input.value.trim())}`;
-        const res = await fetch(url);
+        const res = await fetch(url, {
+            headers: { 'User-Agent': 'GeroShield-App/1.0 (kod-prirody.ru)' }
+        });
         const data = await res.json();
 
         if (data && data.length > 0) {
             const lat = parseFloat(data[0].lat);
             const lon = parseFloat(data[0].lon);
             if (gisMap) {
+                if (searchMarker) {
+                    gisMap.removeLayer(searchMarker);
+                }
                 gisMap.setView([lat, lon], 14);
-                L.marker([lat, lon]).addTo(gisMap).bindPopup(`<b>${data[0].display_name}</b>`).openPopup();
+                searchMarker = L.marker([lat, lon]).addTo(gisMap).bindPopup(`<b>${data[0].display_name}</b>`).openPopup();
             }
         } else {
             alert('Локация не найдена');
@@ -1061,6 +1087,13 @@ function resetMap() {
         gisMap.removeLayer(currentPolygon);
         currentPolygon = null;
     }
+    if (searchMarker) {
+        gisMap.removeLayer(searchMarker);
+        searchMarker = null;
+    }
+    const shapesCountEl = document.getElementById('map-shapes-count');
+    if (shapesCountEl) shapesCountEl.textContent = 'Фигур на карте: 0';
+
     updateCalculations(0);
 }
 
